@@ -184,6 +184,18 @@
     .nav.scrolled .nav-links a { color: var(--muted); }
     .nav.scrolled .nav-links a:hover { color: var(--green); }
 
+    .lang-toggle {
+      display: flex; align-items: center; justify-content: center;
+      min-width: 52px; height: 32px; padding: 0 12px;
+      border-radius: 20px; border: 1.5px solid rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.12); color: #fff;
+      font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.05em;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .lang-toggle:hover { background: rgba(255,255,255,0.25); }
+    .nav.scrolled .lang-toggle { border-color: var(--green); color: var(--green); background: transparent; }
+    .nav.scrolled .lang-toggle:hover { background: var(--green-pale); }
+
     .hamburger {
       display: none;
       background: none;
@@ -1040,15 +1052,13 @@
         <span class="logo-sub">Good space, good service</span>
       </a>
       <ul class="nav-links">
-        <li><a href="#rooms">Các phòng</a></li>
-        <li><a href="#pricing">Bảng giá</a></li>
-        <li><a href="#how-to-book">Đặt phòng</a></li>
-        <li><a href="#contact">Liên hệ</a></li>
+        <li><a href="#pricing"     data-vi="Bảng giá"  data-en="Pricing">Bảng giá</a></li>
+        <li><a href="#how-to-book" data-vi="Đặt phòng" data-en="Book Now">Đặt phòng</a></li>
+        <li><a href="#contact"     data-vi="Liên hệ"   data-en="Contact">Liên hệ</a></li>
       </ul>
-      <a href="tel:0911297249" class="btn btn-green btn-sm nav-cta" style="gap:6px;">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 010 1.2 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-        0911 297 249
-      </a>
+      <button class="lang-toggle nav-cta" id="langToggle" onclick="toggleLang()">
+        <span id="langLabel">EN</span>
+      </button>
       <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" id="ham-icon">
           <path stroke="white" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/>
@@ -1088,8 +1098,7 @@
     <h1 class="hero-title reveal d1">ÀlaHome</h1>
     <p class="hero-sub reveal d2">Good space, good service</p>
     <div class="hero-ctas reveal d3">
-      <a href="#rooms" class="btn btn-green" style="padding:14px 32px;">Xem các phòng</a>
-      <a href="dat-phong.html" class="btn btn-white" style="padding:14px 32px;">Đặt phòng ngay</a>
+      <a href="#rooms" class="btn btn-green" style="padding:14px 32px;" data-vi="Xem các phòng" data-en="View Rooms">Xem các phòng</a>
     </div>
   </div>
   <div class="hero-scroll">
@@ -1211,10 +1220,10 @@
 <section id="rooms">
   <div class="container">
     <div class="section-head reveal">
-      <span class="label">Không gian của bạn</span>
+      <span class="label" id="rooms-label">Không gian của bạn</span>
       <div class="divider center"></div>
-      <h2 class="section-title">Các phòng tại ÀlaHome</h2>
-      <p class="section-sub">Mỗi phòng là một câu chuyện riêng — chọn không gian phù hợp với bạn.</p>
+      <h2 class="section-title" id="rooms-title">Các phòng tại ÀlaHome</h2>
+      <p class="section-sub" id="rooms-sub">Mỗi phòng là một câu chuyện riêng — chọn không gian phù hợp với bạn.</p>
     </div>
     <div class="rooms-grid">
 
@@ -1228,18 +1237,19 @@
             <h3 class="room-name">Vintage Room</h3>
             <span class="room-badge">Từ 400k</span>
           </div>
-          <p class="room-desc">Phong cách Vintage hoài cổ, ấm áp đầy cá tính — lý tưởng cho những buổi sum họp đáng nhớ.</p>
+          <p class="room-desc" data-vi="Phong cách Vintage hoài cổ, ấm áp đầy cá tính — lý tưởng cho những buổi sum họp đáng nhớ." data-en="Vintage-styled, warm and cozy — perfect for memorable gatherings.">Phong cách Vintage hoài cổ, ấm áp đầy cá tính — lý tưởng cho những buổi sum họp đáng nhớ.</p>
           <div class="amenities">
             <span class="amenity">🎬 Máy chiếu</span>
             <span class="amenity">🏡 Ban công</span>
             <span class="amenity">🍳 Bếp mini</span>
-            <span class="amenity">🎲 Board Game</span>
+            <span class="amenity">🧺 Máy giặt</span>
+            <span class="amenity">🎲 Boardgame</span>
+            <span class="amenity">📺 Netflix</span>
           </div>
           <div class="room-footer">
             <div><span class="room-price">780.000đ <span>/ ngày đêm</span></span></div>
             <div style="display:flex;gap:8px;">
-              <a href="phong/vintage.html" class="btn btn-outline btn-sm">Xem phòng</a>
-              <a href="https://zalo.me/0911297249" target="_blank" class="btn btn-green btn-sm">Đặt phòng</a>
+              <a href="phong/vintage.html" class="btn btn-green btn-sm" data-vi="Xem phòng" data-en="View Room">Xem phòng</a>
             </div>
           </div>
         </div>
@@ -1255,17 +1265,19 @@
             <h3 class="room-name">Minimalist Room</h3>
             <span class="room-badge">Từ 400k</span>
           </div>
-          <p class="room-desc">Tinh tế, tối giản, thanh lịch — dành cho những ai yêu thích sự đơn giản trong từng chi tiết.</p>
+          <p class="room-desc" data-vi="Tinh tế, tối giản, thanh lịch — dành cho những ai yêu thích sự đơn giản trong từng chi tiết." data-en="Refined and minimal — for those who appreciate simplicity in every detail.">Tinh tế, tối giản, thanh lịch — dành cho những ai yêu thích sự đơn giản trong từng chi tiết.</p>
           <div class="amenities">
             <span class="amenity">🎬 Máy chiếu</span>
             <span class="amenity">🏡 Ban công</span>
             <span class="amenity">🍳 Bếp mini</span>
+            <span class="amenity">🧺 Máy giặt</span>
+            <span class="amenity">🎲 Boardgame</span>
+            <span class="amenity">📺 Netflix</span>
           </div>
           <div class="room-footer">
             <div><span class="room-price">780.000đ <span>/ ngày đêm</span></span></div>
             <div style="display:flex;gap:8px;">
-              <a href="phong/minimalist.html" class="btn btn-outline btn-sm">Xem phòng</a>
-              <a href="https://zalo.me/0911297249" target="_blank" class="btn btn-green btn-sm">Đặt phòng</a>
+              <a href="phong/minimalist.html" class="btn btn-green btn-sm" data-vi="Xem phòng" data-en="View Room">Xem phòng</a>
             </div>
           </div>
         </div>
@@ -1281,17 +1293,19 @@
             <h3 class="room-name">Cozy Room</h3>
             <span class="room-badge">Từ 400k</span>
           </div>
-          <p class="room-desc">Ấm cúng như ngôi nhà của bạn — 2 ban công thoáng mát, không gian thư giãn và kết nối.</p>
+          <p class="room-desc" data-vi="Ấm cúng như ngôi nhà của bạn — 2 ban công thoáng mát, không gian thư giãn và kết nối." data-en="As cozy as home — 2 breezy balconies, perfect for relaxing and connecting.">Ấm cúng như ngôi nhà của bạn — 2 ban công thoáng mát, không gian thư giãn và kết nối.</p>
           <div class="amenities">
             <span class="amenity">🎬 Máy chiếu</span>
             <span class="amenity">🏡 2 Ban công</span>
             <span class="amenity">🍳 Bếp mini</span>
+            <span class="amenity">🧺 Máy giặt</span>
+            <span class="amenity">🎲 Boardgame</span>
+            <span class="amenity">📺 Netflix</span>
           </div>
           <div class="room-footer">
             <div><span class="room-price">780.000đ <span>/ ngày đêm</span></span></div>
             <div style="display:flex;gap:8px;">
-              <a href="phong/cozy.html" class="btn btn-outline btn-sm">Xem phòng</a>
-              <a href="https://zalo.me/0911297249" target="_blank" class="btn btn-green btn-sm">Đặt phòng</a>
+              <a href="phong/cozy.html" class="btn btn-green btn-sm" data-vi="Xem phòng" data-en="View Room">Xem phòng</a>
             </div>
           </div>
         </div>
@@ -1307,18 +1321,19 @@
             <h3 class="room-name">Tiny Room <span style="font-size:0.8125rem;color:var(--muted);font-weight:400;">×2</span></h3>
             <span class="room-badge">Từ 350k</span>
           </div>
-          <p class="room-desc">Gọn gàng, đầy đủ tiện nghi — lựa chọn kinh tế cho chuyến nghỉ nhanh hay combo 3 tiếng.</p>
+          <p class="room-desc" data-vi="Gọn gàng, đầy đủ tiện nghi — lựa chọn kinh tế cho chuyến nghỉ nhanh hay combo 3 tiếng." data-en="Compact and well-equipped — the smart choice for a quick stay or 3-hour combo.">Gọn gàng, đầy đủ tiện nghi — lựa chọn kinh tế cho chuyến nghỉ nhanh hay combo 3 tiếng.</p>
           <div class="amenities">
             <span class="amenity">🎬 Máy chiếu</span>
-            <span class="amenity">🏡 Ban công</span>
             <span class="amenity">🍳 Bếp mini</span>
+            <span class="amenity">🧺 Máy giặt</span>
+            <span class="amenity">🎲 Boardgame</span>
+            <span class="amenity">📺 Netflix</span>
           </div>
           <div class="room-footer">
             <div><span class="room-price">680.000đ <span>/ ngày đêm</span></span></div>
             <div style="display:flex;gap:8px;flex-wrap:wrap;">
-              <a href="phong/tiny-1.html" class="btn btn-outline btn-sm">Phòng 1</a>
-              <a href="phong/tiny-2.html" class="btn btn-outline btn-sm">Phòng 2</a>
-              <a href="https://zalo.me/0911297249" target="_blank" class="btn btn-green btn-sm">Đặt phòng</a>
+              <a href="phong/tiny-1.html" class="btn btn-green btn-sm" data-vi="Phòng 1" data-en="Room 1">Phòng 1</a>
+              <a href="phong/tiny-2.html" class="btn btn-outline btn-sm" data-vi="Phòng 2" data-en="Room 2">Phòng 2</a>
             </div>
           </div>
         </div>
@@ -1435,54 +1450,59 @@
 <section class="alt" id="how-to-book">
   <div class="container">
     <div class="section-head reveal">
-      <span class="label">Quy trình</span>
+      <span class="label" id="book-label">Quy trình</span>
       <div class="divider center"></div>
-      <h2 class="section-title">Đặt phòng trong 5 bước</h2>
-      <p class="section-sub">Đơn giản, nhanh chóng — chỉ mất vài phút là xong.</p>
+      <h2 class="section-title" id="book-title">Đặt phòng trong 5 bước</h2>
+      <p class="section-sub" id="book-sub">Đơn giản, nhanh chóng — chỉ mất vài phút là xong.</p>
     </div>
 
     <div class="steps">
       <div class="step reveal d1">
         <div class="step-num">1</div>
         <div class="step-text">
-          <h4>Xem phòng & bảng giá</h4>
-          <p>Duyệt qua các phòng, chọn loại giá phù hợp với lịch trình của bạn.</p>
+          <h4 id="step1-h">Xem phòng & bảng giá</h4>
+          <p id="step1-p">Duyệt qua các phòng, chọn loại giá phù hợp với lịch trình của bạn.</p>
         </div>
       </div>
       <div class="step reveal d2">
         <div class="step-num">2</div>
         <div class="step-text">
-          <h4>Kiểm tra phòng trống</h4>
-          <p>Nhắn tin Zalo hoặc Facebook để xác nhận phòng còn trống ngày bạn chọn.</p>
+          <h4 data-vi="Kiểm tra phòng trống" data-en="Check Availability">Kiểm tra phòng trống</h4>
+          <p data-vi="Đặt phòng tại website hoặc nhắn tin qua Zalo/Facebook/Instagram để điền thông tin ngày, giờ, số khách để nhận thông tin phòng trống." data-en="Book directly on our website or message us via Zalo/Facebook/Instagram with your dates, times and number of guests to check availability.">Đặt phòng tại website hoặc nhắn tin qua Zalo/Facebook/Instagram để điền thông tin ngày, giờ, số khách để nhận thông tin phòng trống.</p>
         </div>
       </div>
       <div class="step reveal d3">
         <div class="step-num">3</div>
         <div class="step-text">
-          <h4>Xác nhận đặt phòng</h4>
-          <p>Thông báo ngày giờ, số khách với admin để giữ phòng cho bạn.</p>
+          <h4 data-vi="Xác nhận thông tin & báo giá" data-en="Confirm & Receive Quote">Xác nhận thông tin & báo giá</h4>
+          <p data-vi="Xác nhận thông tin và nhận báo giá." data-en="Confirm your booking details and receive a price quote.">Xác nhận thông tin và nhận báo giá.</p>
         </div>
       </div>
       <div class="step reveal d4">
         <div class="step-num">4</div>
         <div class="step-text">
-          <h4>Thanh toán & gửi CCCD</h4>
-          <p>Thanh toán 100% qua chuyển khoản, gửi kèm ảnh CCCD/CMT cho admin.</p>
+          <h4 data-vi="Thanh toán & gửi giấy tờ" data-en="Payment & ID Verification">Thanh toán & gửi giấy tờ</h4>
+          <p data-vi="Thanh toán 100% qua chuyển khoản và gửi kèm CMT/CCCD/Hộ Chiếu." data-en="Pay 100% via bank transfer and send a copy of your ID/Passport.">Thanh toán 100% qua chuyển khoản và gửi kèm CMT/CCCD/Hộ Chiếu.</p>
         </div>
       </div>
       <div class="step reveal d5">
         <div class="step-num accent">5</div>
         <div class="step-text">
-          <h4>Nhận hướng dẫn check-in</h4>
-          <p>Nhận mã cửa & hướng dẫn tự check-in qua Zalo — không cần gặp mặt!</p>
+          <h4 data-vi="Nhận hướng dẫn check-in" data-en="Receive Check-in Instructions">Nhận hướng dẫn check-in</h4>
+          <p data-vi="Nhận mã cửa & hướng dẫn tự check-in qua Email/Facebook/Instagram/Zalo — không cần gặp mặt!" data-en="Receive door code & self check-in instructions via Email/Facebook/Instagram/Zalo — no meet-up needed!">Nhận mã cửa & hướng dẫn tự check-in qua Email/Facebook/Instagram/Zalo — không cần gặp mặt!</p>
         </div>
       </div>
     </div>
 
-    <div style="text-align:center; margin-top:52px;" class="reveal">
-      <a href="https://zalo.me/0911297249" target="_blank" class="btn btn-green" style="padding:15px 44px; font-size:1rem; gap:10px;">
-        Nhắn tin Zalo ngay
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    <div style="text-align:center; margin-top:52px; display:flex; flex-wrap:wrap; gap:12px; justify-content:center;" class="reveal">
+      <a href="https://zalo.me/0911297249" target="_blank" class="btn btn-green" style="padding:15px 28px; font-size:0.9375rem; gap:8px;" data-vi="Nhắn tin Zalo ngay →" data-en="Message on Zalo →">
+        Nhắn tin Zalo ngay →
+      </a>
+      <a href="https://www.facebook.com/profile.php?id=61564387397128" target="_blank" class="btn" style="padding:15px 28px; font-size:0.9375rem; gap:8px; background:#1877F2; color:#fff; border-color:#1877F2;" data-vi="Nhắn tin Facebook ngay →" data-en="Message on Facebook →">
+        Nhắn tin Facebook ngay →
+      </a>
+      <a href="https://www.instagram.com/alahome.saigon/" target="_blank" class="btn" style="padding:15px 28px; font-size:0.9375rem; gap:8px; background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color:#fff; border:none;" data-vi="Nhắn tin Instagram ngay →" data-en="Message on Instagram →">
+        Nhắn tin Instagram ngay →
       </a>
     </div>
   </div>
@@ -1963,6 +1983,61 @@
       window.location.href = 'dat-phong.html?' + new URLSearchParams({ cin, cout, cint, coutt, adults, babies });
     });
   })();
+</script>
+
+<script>
+// ── Language toggle ──────────────────────────────
+let currentLang = localStorage.getItem('alahome-lang') || 'vi';
+
+const TRANSLATIONS = {
+  'hero-title':       { vi: 'ÀlaHome',                        en: 'ÀlaHome' },
+  'hero-slogan':      { vi: 'Good space, good service',        en: 'Good space, good service' },
+  'hero-address':     { vi: '370 Điện Biên Phủ · TP. Hồ Chí Minh', en: '370 Dien Bien Phu · Ho Chi Minh City' },
+  'rooms-label':      { vi: 'Không gian của bạn',              en: 'Your Space' },
+  'rooms-title':      { vi: 'Các phòng tại ÀlaHome',          en: 'Rooms at ÀlaHome' },
+  'rooms-sub':        { vi: 'Mỗi phòng là một câu chuyện riêng — chọn không gian phù hợp với bạn.', en: 'Every room tells a story — find the space that fits you.' },
+  'vintage-name':     { vi: 'Vintage Room',                    en: 'Vintage Room' },
+  'minimalist-name':  { vi: 'Minimalist Room',                 en: 'Minimalist Room' },
+  'cozy-name':        { vi: 'Cozy Room',                       en: 'Cozy Room' },
+  'tiny-name':        { vi: 'Tiny Room',                       en: 'Tiny Room' },
+  'book-label':       { vi: 'Quy trình',                       en: 'How To Book' },
+  'book-title':       { vi: 'Đặt phòng trong 5 bước',         en: 'Book in 5 Simple Steps' },
+  'book-sub':         { vi: 'Đơn giản, nhanh chóng — chỉ mất vài phút là xong.', en: 'Simple and fast — takes only a few minutes.' },
+  'step1-h':          { vi: 'Xem phòng & bảng giá',           en: 'Browse Rooms & Pricing' },
+  'step1-p':          { vi: 'Duyệt qua các phòng, chọn loại giá phù hợp với lịch trình của bạn.', en: 'Browse our rooms and choose the rate that fits your schedule.' },
+  'footer-tagline':   { vi: 'Good space, good service',        en: 'Good space, good service' },
+  'contact-label':    { vi: 'Liên hệ với chúng tôi',          en: 'Get In Touch' },
+  'contact-title':    { vi: 'Chúng tôi luôn sẵn sàng hỗ trợ', en: 'We\'re Always Here For You' },
+};
+
+function applyLang(lang) {
+  // data-vi / data-en elements
+  document.querySelectorAll('[data-vi]').forEach(el => {
+    el.textContent = el.getAttribute('data-' + lang);
+  });
+
+  // Named translations
+  Object.entries(TRANSLATIONS).forEach(([id, t]) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = t[lang];
+  });
+
+  // html lang attr
+  document.documentElement.lang = lang === 'vi' ? 'vi' : 'en';
+
+  // Toggle button label: show what it will switch TO
+  document.getElementById('langLabel').textContent = lang === 'vi' ? 'EN' : 'VI';
+
+  localStorage.setItem('alahome-lang', lang);
+  currentLang = lang;
+}
+
+function toggleLang() {
+  applyLang(currentLang === 'vi' ? 'en' : 'vi');
+}
+
+// Apply saved language on load
+if (currentLang === 'en') applyLang('en');
 </script>
 
 </body>
