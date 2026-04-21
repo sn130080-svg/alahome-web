@@ -1,0 +1,1969 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ÀlaHome - Good space, good service. Homestay tại 370 Điện Biên Phủ, TP.HCM. Đặt phòng tự động, check-in tiện lợi 24/7." />
+  <title>ÀlaHome — Good space, good service</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: #F8F5F0;
+      color: #1A1A1A;
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+
+    /* ── CSS Variables ── */
+    :root {
+      --green:        #4A6741;
+      --green-light:  #6B8F5E;
+      --green-pale:   #EBF2E8;
+      --green-dark:   #2D3F28;
+      --accent:       #C4A882;
+      --bg:           #F8F5F0;
+      --white:        #FFFFFF;
+      --border:       #E2DDD7;
+      --text:         #1A1A1A;
+      --muted:        #6B6560;
+    }
+
+    /* ── Typography ── */
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', Georgia, serif;
+      line-height: 1.2;
+    }
+    .label {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .divider {
+      width: 40px; height: 3px;
+      background: var(--green);
+      border-radius: 2px;
+      margin-bottom: 20px;
+    }
+    .divider.center { margin-left: auto; margin-right: auto; }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    @media (min-width: 768px) { .container { padding: 0 48px; } }
+
+    section { padding: 80px 0; }
+    section.alt { background: var(--white); }
+    @media (max-width: 767px) { section { padding: 56px 0; } }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 28px;
+      border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      border: 1.5px solid transparent;
+      transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.12s, opacity 0.12s;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+      white-space: nowrap;
+    }
+    .btn:active { transform: scale(0.96) !important; opacity: 0.88 !important; }
+    .btn-green  { background: var(--green); color: #fff; border-color: var(--green); }
+    .btn-green:hover  { background: #3d5636; border-color: #3d5636; }
+    .btn-outline { background: transparent; color: var(--green); border-color: var(--green); }
+    .btn-outline:hover { background: var(--green); color: #fff; }
+    .btn-white  { background: #fff; color: var(--green); border-color: #fff; }
+    .btn-white:hover  { background: #f0ece7; }
+    .btn-sm { padding: 9px 20px; font-size: 0.875rem; }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.09); }
+
+    /* ── Scroll Reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.d1 { transition-delay: 0.08s; }
+    .reveal.d2 { transition-delay: 0.16s; }
+    .reveal.d3 { transition-delay: 0.24s; }
+    .reveal.d4 { transition-delay: 0.32s; }
+    .reveal.d5 { transition-delay: 0.40s; }
+    .reveal.in { opacity: 1; transform: none; }
+    .no-reveal .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    .preview-mode .hero { height: 560px !important; min-height: 0 !important; }
+    .preview-mode .sticky-cta { display: none !important; }
+    .preview-mode body { padding-bottom: 0 !important; }
+
+    /* ═══════════════════════
+       NAVBAR
+    ═══════════════════════ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 22px 0;
+      transition: background 0.35s, padding 0.35s, box-shadow 0.35s;
+    }
+    .nav.scrolled {
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 14px 0;
+      box-shadow: 0 1px 0 var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo { text-decoration: none; line-height: 1; }
+    .logo-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      transition: color 0.35s;
+      display: block;
+    }
+    .logo-sub {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      display: block;
+      margin-top: 2px;
+    }
+    .nav.scrolled .logo-name { color: var(--green); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav.scrolled .nav-links a { color: var(--muted); }
+    .nav.scrolled .nav-links a:hover { color: var(--green); }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.15s;
+    }
+    .hamburger:active { transform: scale(0.92); }
+    @media (max-width: 767px) {
+      .nav-links, .nav-cta { display: none !important; }
+      .hamburger { display: flex; }
+    }
+
+    /* ── Mobile Drawer ── */
+    .drawer-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.48);
+      z-index: 190;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .drawer-overlay.open { opacity: 1; pointer-events: all; }
+    .drawer {
+      position: fixed;
+      top: 0; right: 0; bottom: 0;
+      width: min(300px, 82vw);
+      background: var(--white);
+      z-index: 200;
+      padding: 72px 28px 32px;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+      overflow-y: auto;
+    }
+    .drawer.open { transform: none; }
+    .drawer-close {
+      position: absolute; top: 18px; right: 18px;
+      background: none; border: none; cursor: pointer; padding: 8px;
+      transition: transform 0.15s;
+    }
+    .drawer-close:active { transform: scale(0.9); }
+    .drawer-links { list-style: none; }
+    .drawer-links li { border-bottom: 1px solid var(--border); }
+    .drawer-links a {
+      display: block;
+      padding: 16px 0;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      color: var(--text);
+      transition: color 0.2s;
+    }
+    .drawer-links a:hover { color: var(--green); }
+    .drawer-btns { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
+
+    /* ═══════════════════════
+       HERO
+    ═══════════════════════ */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 620px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: url('Ala1/Ngủ.JPG') center/cover no-repeat;
+      transform: scale(1.06);
+      transition: transform 7s ease;
+    }
+    .hero-bg.loaded { transform: scale(1); }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(175deg, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.52) 55%, rgba(0,0,0,0.68) 100%);
+    }
+    .hero-body {
+      position: relative; z-index: 2;
+      padding: 0 24px;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .hero-location {
+      font-size: 0.6875rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+    .hero-title {
+      font-size: clamp(3rem, 9vw, 5.5rem);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 14px;
+      line-height: 1.05;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: rgba(255,255,255,0.85);
+      font-style: italic;
+      margin-bottom: 40px;
+    }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .hero-scroll {
+      position: absolute; bottom: 28px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      color: rgba(255,255,255,0.65); font-size: 0.6875rem; letter-spacing: 0.12em;
+      text-transform: uppercase;
+      animation: scrollBounce 2.2s infinite;
+    }
+    @keyframes scrollBounce {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(7px); }
+    }
+
+    /* ═══════════════════════
+       SEARCH BAR
+    ═══════════════════════ */
+    .hero-search {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      z-index: 4;
+      padding: 0 24px;
+    }
+    @media (min-width: 768px) { .hero-search { padding: 0 48px; } }
+
+    .search-box {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 12px 12px 0 0;
+      box-shadow: 0 -6px 32px rgba(0,0,0,0.14);
+      display: flex;
+      align-items: stretch;
+      position: relative;
+    }
+    .search-field {
+      flex: 1;
+      padding: 15px 18px;
+      cursor: pointer;
+      position: relative;
+      min-width: 0;
+      transition: background 0.15s;
+    }
+    .search-field:hover { background: #f5f2ed; }
+    .search-field + .search-field { border-left: 1px solid var(--border); }
+    .search-field:first-child { border-radius: 12px 0 0 0; }
+    .sf-label {
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+    .sf-value {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .sf-placeholder { color: #b0a89e; }
+    .sf-date {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+      border: none;
+      background: transparent;
+    }
+    .sf-select {
+      width: 100%;
+      background: none;
+      border: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text);
+      cursor: pointer;
+      padding: 0;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .sf-select option { color: var(--text); background: #fff; }
+    .sf-select:disabled { color: var(--muted); }
+
+    /* Guest picker popup */
+    .sf-guests-wrap { position: relative; }
+    .guest-picker {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px 20px;
+      min-width: 264px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.13);
+      display: none;
+      z-index: 30;
+    }
+    .guest-picker.open { display: block; }
+    .guest-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 0;
+    }
+    .guest-row + .guest-row { border-top: 1px solid var(--border); }
+    .g-label { font-weight: 600; font-size: 0.9375rem; }
+    .g-sub { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+    .g-counter { display: flex; align-items: center; gap: 14px; }
+    .g-btn {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: none;
+      cursor: pointer;
+      font-size: 1.375rem;
+      line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text);
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+      font-family: 'Inter', sans-serif;
+    }
+    .g-btn:hover:not(:disabled) { border-color: var(--green); color: var(--green); }
+    .g-btn:disabled { opacity: 0.28; cursor: not-allowed; }
+    .g-num { font-weight: 600; font-size: 1rem; min-width: 22px; text-align: center; }
+
+    /* Search submit */
+    .search-submit {
+      padding: 0 28px;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      border-radius: 0 12px 0 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.1s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .search-submit:hover { background: var(--green-dark); }
+    .search-submit:active { transform: scale(0.97); }
+
+    /* Mobile: 2-column grid layout */
+    @media (max-width: 767px) {
+      .hero { height: auto; min-height: 100svh; }
+      .hero-body { padding-bottom: 24px; }
+      .hero-search { padding: 0; }
+      .hero-scroll { display: none; }
+      .search-box {
+        flex-wrap: wrap;
+        border-radius: 0;
+      }
+      .search-field {
+        flex: 0 0 50%;
+        border-left: none !important;
+        border-top: 1px solid var(--border);
+      }
+      .search-field:nth-child(odd)  { border-right: 1px solid var(--border); }
+      .search-field:first-child,
+      .search-field:nth-child(2)    { border-top: none; }
+      .search-field:first-child     { border-radius: 0; }
+      .search-submit {
+        flex: 0 0 100%;
+        padding: 16px;
+        border-radius: 0;
+        justify-content: center;
+        font-size: 1rem;
+      }
+      .guest-picker {
+        left: auto; right: 0;
+        transform: none;
+        min-width: 240px;
+      }
+    }
+
+    /* ═══════════════════════
+       CALENDAR PICKER
+    ═══════════════════════ */
+    .cal-wrapper {
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 0; right: 0;
+      z-index: 200;
+    }
+    .cal-popup {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 -4px 8px rgba(0,0,0,0.06), 0 16px 48px rgba(0,0,0,0.18);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      animation: calIn 0.18s ease;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    @keyframes calIn {
+      from { opacity:0; transform: translateY(10px); }
+      to   { opacity:1; transform: none; }
+    }
+    .cal-nights-bar {
+      text-align: center;
+      padding: 12px 20px;
+      font-size: 0.9375rem; font-weight: 600;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--green);
+    }
+    .cal-months-wrap {
+      display: flex;
+    }
+    .cal-m {
+      flex: 1;
+      padding: 16px 14px 18px;
+    }
+    .cal-m.cal-m-right { border-left: 1px solid var(--border); }
+    .cal-m-hdr {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .cal-m-title {
+      font-size: 0.9375rem; font-weight: 600;
+      text-align: center; flex: 1;
+    }
+    .cal-nav-btn {
+      width: 30px; height: 30px; border-radius: 50%;
+      border: 1px solid var(--border); background: none;
+      cursor: pointer; font-size: 1.125rem;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text); transition: background 0.15s;
+      flex-shrink: 0; line-height: 1;
+    }
+    .cal-nav-btn:hover { background: var(--bg); }
+    .cal-nav-invis { visibility: hidden; pointer-events: none; }
+    .cal-wdays {
+      display: grid; grid-template-columns: repeat(7,1fr);
+      margin-bottom: 4px;
+    }
+    .cal-wdays span {
+      text-align: center; font-size: 0.6875rem; font-weight: 600;
+      color: var(--muted); padding: 4px 0 6px;
+    }
+    .cal-days-grid {
+      display: grid; grid-template-columns: repeat(7,1fr);
+    }
+    .cal-d {
+      position: relative;
+      height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; user-select: none;
+    }
+    .cal-d.empty, .cal-d.past { pointer-events: none; }
+    .cal-d.past span { color: #ccc; }
+    .cal-d.today span { font-weight: 700; }
+    .cal-d::before {
+      content: ''; position: absolute; inset: 0; z-index: 0;
+    }
+    .cal-d span {
+      position: relative; z-index: 1;
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%; font-size: 0.875rem;
+      transition: background 0.1s, color 0.1s;
+    }
+    .cal-d:not(.empty):not(.past):not(.selected):not(.range-start):not(.range-end):hover span {
+      background: var(--green-pale); color: var(--green);
+    }
+    .cal-d.selected span,
+    .cal-d.range-start span,
+    .cal-d.range-end span {
+      background: var(--green); color: #fff;
+    }
+    .cal-d.in-range::before { background: var(--green-pale); }
+    .cal-d.range-start::before { background: linear-gradient(to right, transparent 50%, var(--green-pale) 50%); }
+    .cal-d.range-end::before   { background: linear-gradient(to left,  transparent 50%, var(--green-pale) 50%); }
+    .cal-d.range-start.range-end::before { background: transparent; }
+
+    @media (max-width: 639px) {
+      .cal-wrapper { bottom: 100%; left: 0; right: 0; }
+      .cal-months-wrap { flex-direction: column; }
+      .cal-m.cal-m-right { border-left: none; border-top: 1px solid var(--border); }
+    }
+
+    /* ═══════════════════════
+       ABOUT
+    ═══════════════════════ */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    @media (min-width: 900px) {
+      .about-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .about-image {
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+    .about-image img { width: 100%; height: 100%; object-fit: cover; }
+    .stats { display: flex; gap: 40px; flex-wrap: wrap; margin-top: 32px; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-label { font-size: 0.8125rem; color: var(--muted); }
+
+    /* ═══════════════════════
+       ROOMS
+    ═══════════════════════ */
+    .rooms-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    @media (min-width: 600px)  { .rooms-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .rooms-grid { grid-template-columns: repeat(4, 1fr); } }
+
+    .room-img-wrap { overflow: hidden; }
+    .room-img {
+      width: 100%; aspect-ratio: 4/3; object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .card:hover .room-img { transform: scale(1.05); }
+    .room-body { padding: 20px 22px 22px; }
+    .room-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+      gap: 8px;
+    }
+    .room-name { font-size: 1.125rem; font-weight: 600; }
+    .room-badge {
+      font-size: 0.6875rem;
+      padding: 4px 10px;
+      background: var(--green-pale);
+      color: var(--green);
+      border-radius: 100px;
+      font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .room-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.65; margin-bottom: 14px; }
+    .amenities { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+    .amenity {
+      font-size: 0.75rem;
+      padding: 5px 10px;
+      background: var(--bg);
+      border-radius: 100px;
+      color: var(--muted);
+      display: flex; align-items: center; gap: 5px;
+    }
+    .room-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+    }
+    .room-price { font-size: 1.0625rem; font-weight: 700; color: var(--green); }
+    .room-price span { font-size: 0.8125rem; font-weight: 400; color: var(--muted); }
+
+    /* ═══════════════════════
+       FEATURES
+    ═══════════════════════ */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    @media (min-width: 768px) { .features-grid { grid-template-columns: repeat(4, 1fr); } }
+    .feature-item {
+      background: var(--white);
+      padding: 36px 28px;
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .feature-item:hover { background: #fafaf8; }
+    .feature-icon {
+      width: 60px; height: 60px;
+      background: var(--green-pale);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.625rem;
+      margin: 0 auto 18px;
+    }
+    .feature-title { font-size: 0.9375rem; font-weight: 600; margin-bottom: 8px; }
+    .feature-desc { font-size: 0.8125rem; color: var(--muted); line-height: 1.65; }
+
+    /* ═══════════════════════
+       PRICING
+    ═══════════════════════ */
+    .pricing-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .price-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+    }
+    .price-tab {
+      flex: 1;
+      padding: 16px 24px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      background: transparent;
+      color: var(--muted);
+      transition: all 0.2s;
+      white-space: nowrap;
+      font-family: 'Inter', sans-serif;
+      border-bottom: 2px solid transparent;
+      min-width: 0;
+    }
+    .price-tab:active { transform: scale(0.97); }
+    .price-tab.active {
+      color: var(--green);
+      border-bottom-color: var(--green);
+      background: var(--green-pale);
+    }
+    .price-table { width: 100%; border-collapse: collapse; }
+    .price-table th {
+      background: var(--green);
+      color: #fff;
+      padding: 14px 24px;
+      text-align: left;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+    .price-table td {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9375rem;
+    }
+    .price-table tr:last-child td { border-bottom: none; }
+    .price-table tbody tr { transition: background 0.15s; }
+    .price-table tbody tr:hover { background: var(--bg); }
+    .price-val { font-weight: 700; color: var(--green); font-size: 1.0625rem; }
+    .price-note {
+      padding: 14px 24px;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      font-size: 0.8125rem;
+      color: var(--muted);
+    }
+
+    /* ═══════════════════════
+       HOW TO BOOK (Steps)
+    ═══════════════════════ */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    @media (min-width: 768px) {
+      .steps {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 0;
+      }
+    }
+    .step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      flex: 1;
+      position: relative;
+      padding: 0 0 32px;
+    }
+    @media (min-width: 768px) {
+      .step {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 0 16px;
+        gap: 16px;
+      }
+    }
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      background: var(--border);
+    }
+    @media (max-width: 767px) {
+      .step:not(:last-child)::after {
+        left: 23px; top: 48px; bottom: 0;
+        width: 1px; height: auto;
+      }
+    }
+    @media (min-width: 768px) {
+      .step:not(:last-child)::after {
+        top: 23px; left: calc(50% + 28px);
+        width: calc(100% - 56px); height: 1px;
+      }
+    }
+    .step-num {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: var(--green);
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.0625rem; font-weight: 700;
+      flex-shrink: 0;
+      position: relative; z-index: 1;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .step:hover .step-num { transform: scale(1.1); background: var(--green-light); }
+    .step-num.accent { background: var(--accent); }
+    .step-text h4 { font-size: 0.9375rem; font-weight: 600; margin-bottom: 6px; }
+    .step-text p { font-size: 0.8125rem; color: var(--muted); line-height: 1.65; }
+
+    /* ═══════════════════════
+       POLICY
+    ═══════════════════════ */
+    .policy-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    @media (min-width: 768px) { .policy-grid { grid-template-columns: repeat(4, 1fr); } }
+    .policy-card {
+      background: var(--white);
+      border-radius: 10px;
+      padding: 28px 20px;
+      text-align: center;
+      border: 1.5px solid var(--border);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .policy-card:hover { transform: translateY(-3px); }
+    .policy-card.green  { border-color: var(--green-pale); }
+    .policy-card.yellow { border-color: #FDE68A; }
+    .policy-card.red    { border-color: #FECACA; }
+    .policy-card.blue   { border-color: #DBEAFE; }
+    .policy-emoji { font-size: 1.875rem; margin-bottom: 12px; }
+    .policy-tag {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+    .policy-tag.green  { color: var(--green); }
+    .policy-tag.yellow { color: #D97706; }
+    .policy-tag.red    { color: #DC2626; }
+    .policy-tag.blue   { color: #2563EB; }
+    .policy-value { font-size: 1.1875rem; font-weight: 700; margin-bottom: 6px; }
+    .policy-note { font-size: 0.8125rem; color: var(--muted); line-height: 1.55; }
+
+    /* ═══════════════════════
+       CONTACT
+    ═══════════════════════ */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    @media (min-width: 900px) {
+      .contact-grid { grid-template-columns: 1fr 1fr; align-items: start; }
+    }
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      text-decoration: none;
+      color: var(--text);
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+    .contact-item:hover { color: var(--green); }
+    .contact-icon {
+      width: 44px; height: 44px;
+      background: var(--green-pale);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.125rem;
+      flex-shrink: 0;
+    }
+    .contact-label { font-size: 0.75rem; color: var(--muted); margin-bottom: 3px; }
+    .contact-value { font-size: 0.9375rem; font-weight: 500; }
+    .contact-map {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      height: 280px;
+      background: var(--green-pale);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 12px;
+      color: var(--green);
+    }
+    .contact-social { display: flex; gap: 10px; margin-top: 24px; }
+    .social-btn {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: transform 0.15s, opacity 0.15s;
+    }
+    .social-btn:active { transform: scale(0.96); opacity: 0.88; }
+    .social-btn.zalo { background: #0068FF; color: #fff; }
+    .social-btn.fb   { background: #1877F2; color: #fff; }
+    .social-btn.ig   { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: #fff; }
+
+    /* ═══════════════════════
+       FOOTER
+    ═══════════════════════ */
+    footer {
+      background: var(--green-dark);
+      color: rgba(255,255,255,0.75);
+    }
+    .footer-main {
+      padding: 60px 0 40px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    @media (min-width: 768px) {
+      .footer-main { grid-template-columns: 2fr 1fr 1fr; }
+    }
+    .footer-brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .footer-brand-sub {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .footer-desc {
+      font-size: 0.875rem;
+      line-height: 1.75;
+      margin-top: 14px;
+      max-width: 280px;
+      color: rgba(255,255,255,0.6);
+    }
+    .footer-heading {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: #fff; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ═══════════════════════
+       STICKY MOBILE CTA
+    ═══════════════════════ */
+    .sticky-cta {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 80;
+      padding: 10px 16px 14px;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-top: 1px solid var(--border);
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.07);
+    }
+    @media (min-width: 768px) { .sticky-cta { display: none; } }
+    @media (max-width: 767px) { body { padding-bottom: 72px; } }
+
+    /* ═══════════════════════
+       SECTION HEADER (reusable)
+    ═══════════════════════ */
+    .section-head { text-align: center; margin-bottom: 52px; }
+    .section-head.left { text-align: left; }
+    .section-title {
+      font-size: clamp(1.875rem, 4vw, 2.5rem);
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+    .section-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 500px;
+      line-height: 1.75;
+    }
+    .section-head .section-sub { margin: 0 auto; }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     NAVBAR
+════════════════════════════════════════ -->
+<nav class="nav" id="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="logo">
+        <span class="logo-name">ÀlaHome</span>
+        <span class="logo-sub">Good space, good service</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#rooms">Các phòng</a></li>
+        <li><a href="#pricing">Bảng giá</a></li>
+        <li><a href="#how-to-book">Đặt phòng</a></li>
+        <li><a href="#contact">Liên hệ</a></li>
+      </ul>
+      <a href="tel:0911297249" class="btn btn-green btn-sm nav-cta" style="gap:6px;">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 010 1.2 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        0911 297 249
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" id="ham-icon">
+          <path stroke="white" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<div class="drawer" id="drawer">
+  <button class="drawer-close" id="drawerClose" aria-label="Đóng">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+  </button>
+  <ul class="drawer-links">
+    <li><a href="#rooms"       class="drawer-link">Các phòng</a></li>
+    <li><a href="#pricing"     class="drawer-link">Bảng giá</a></li>
+    <li><a href="#how-to-book" class="drawer-link">Đặt phòng</a></li>
+    <li><a href="#policy"      class="drawer-link">Chính sách</a></li>
+    <li><a href="#contact"     class="drawer-link">Liên hệ</a></li>
+  </ul>
+  <div class="drawer-btns">
+    <a href="tel:0911297249" class="btn btn-green" style="justify-content:center;">Gọi ngay: 0911 297 249</a>
+    <a href="https://zalo.me/0911297249" target="_blank" class="btn btn-outline" style="justify-content:center;">Nhắn Zalo</a>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     HERO
+════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-body" style="padding-bottom:160px;">
+    <p class="hero-location reveal">📍 370 Điện Biên Phủ · TP. Hồ Chí Minh</p>
+    <h1 class="hero-title reveal d1">ÀlaHome</h1>
+    <p class="hero-sub reveal d2">Good space, good service</p>
+    <div class="hero-ctas reveal d3">
+      <a href="#rooms" class="btn btn-green" style="padding:14px 32px;">Xem các phòng</a>
+      <a href="dat-phong.html" class="btn btn-white" style="padding:14px 32px;">Đặt phòng ngay</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Khám phá</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="hero-search">
+    <div class="search-box reveal d4">
+      <!-- Nhận phòng -->
+      <div class="search-field" id="sfCheckinField" style="cursor:pointer;user-select:none;">
+        <div class="sf-label">Nhận phòng</div>
+        <div class="sf-value" id="sfCheckinVal"><span class="sf-placeholder">Chọn ngày</span></div>
+      </div>
+      <!-- Trả phòng -->
+      <div class="search-field" id="sfCheckoutField" style="cursor:pointer;user-select:none;">
+        <div class="sf-label">Trả phòng</div>
+        <div class="sf-value" id="sfCheckoutVal"><span class="sf-placeholder">Chọn ngày</span></div>
+      </div>
+      <!-- Calendar popup -->
+      <div class="cal-wrapper" id="calWrapper" style="display:none;">
+        <div class="cal-popup">
+          <div class="cal-nights-bar" id="calNightsLabel">Chọn ngày nhận phòng</div>
+          <div class="cal-months-wrap" id="calMonthsContainer"></div>
+        </div>
+      </div>
+      <!-- Hidden date values -->
+      <input type="date" id="checkinDate" style="display:none;" />
+      <input type="date" id="checkoutDate" style="display:none;" />
+      <!-- Giờ nhận -->
+      <div class="search-field" style="max-width:130px;">
+        <div class="sf-label">Giờ nhận</div>
+        <select class="sf-select" id="checkinTime" aria-label="Giờ nhận phòng">
+          <option value="">--</option>
+          <option value="14:00">14:00</option>
+          <option value="21:00">21:00</option>
+        </select>
+      </div>
+      <!-- Giờ trả -->
+      <div class="search-field" style="max-width:130px;">
+        <div class="sf-label">Giờ trả</div>
+        <select class="sf-select" id="checkoutTime" aria-label="Giờ trả phòng">
+          <option value="12:00">12:00</option>
+        </select>
+      </div>
+      <!-- Số khách -->
+      <div class="search-field sf-guests-wrap" style="max-width:180px;" id="sfGuestsField">
+        <div class="sf-label">Số khách</div>
+        <div class="sf-value" id="sfGuestVal">2 người lớn</div>
+        <div class="guest-picker" id="guestPicker">
+          <div class="guest-row">
+            <div>
+              <div class="g-label">Người lớn</div>
+              <div class="g-sub">Tối đa 3 người</div>
+            </div>
+            <div class="g-counter">
+              <button class="g-btn" id="adultMinus" type="button" aria-label="Giảm">−</button>
+              <span class="g-num" id="adultCount">2</span>
+              <button class="g-btn" id="adultPlus"  type="button" aria-label="Tăng">+</button>
+            </div>
+          </div>
+          <div class="guest-row">
+            <div>
+              <div class="g-label">Em bé</div>
+              <div class="g-sub">Dưới 2 tuổi</div>
+            </div>
+            <div class="g-counter">
+              <button class="g-btn" id="babyMinus" type="button" disabled aria-label="Giảm">−</button>
+              <span class="g-num" id="babyCount">0</span>
+              <button class="g-btn" id="babyPlus"  type="button" aria-label="Tăng">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Submit -->
+      <button class="search-submit" id="searchSubmitBtn" type="button" aria-label="Tìm phòng">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        Tìm phòng
+      </button>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     ABOUT
+════════════════════════════════════════ -->
+<section class="alt" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="reveal">
+        <span class="label">Về chúng tôi</span>
+        <div class="divider"></div>
+        <h2 class="section-title">Không gian sống — <em>Trải nghiệm thật</em></h2>
+        <p style="color:var(--muted); font-size:1.0625rem; line-height:1.8; margin-bottom:16px;">
+          ÀlaHome là homestay tọa lạc ngay trung tâm TP. Hồ Chí Minh, mang đến không gian ấm cúng và riêng tư cho cặp đôi, nhóm bạn và những ai tìm kiếm một nơi nghỉ ngơi chất lượng.
+        </p>
+        <p style="color:var(--muted); font-size:1.0625rem; line-height:1.8; margin-bottom:0;">
+          5 phòng với 4 phong cách — Vintage hoài cổ, Minimalist tinh tế, Cozy ấm áp và Tiny gọn gàng. Tất cả đều có máy chiếu, bếp mini, ban công riêng và hỗ trợ check-in tự động 24/7.
+        </p>
+        <div class="stats">
+          <div><div class="stat-num">5</div><div class="stat-label">Phòng độc đáo</div></div>
+          <div><div class="stat-num">4</div><div class="stat-label">Phong cách</div></div>
+          <div><div class="stat-num">24/7</div><div class="stat-label">Check-in tự động</div></div>
+        </div>
+      </div>
+      <div class="reveal d2 about-image">
+        <img src="Ala2/Minimalist1.JPG" alt="Phòng ÀlaHome" loading="lazy" style="width:100%;height:100%;object-fit:cover;" />
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     ROOMS
+════════════════════════════════════════ -->
+<section id="rooms">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="label">Không gian của bạn</span>
+      <div class="divider center"></div>
+      <h2 class="section-title">Các phòng tại ÀlaHome</h2>
+      <p class="section-sub">Mỗi phòng là một câu chuyện riêng — chọn không gian phù hợp với bạn.</p>
+    </div>
+    <div class="rooms-grid">
+
+      <!-- Vintage Room -->
+      <div class="card reveal d1">
+        <a href="phong/vintage.html" class="room-img-wrap" style="display:block;">
+          <img src="Ala1/Vin1.JPG" alt="Vintage Room" class="room-img" loading="lazy" />
+        </a>
+        <div class="room-body">
+          <div class="room-header">
+            <h3 class="room-name">Vintage Room</h3>
+            <span class="room-badge">Từ 400k</span>
+          </div>
+          <p class="room-desc">Phong cách Vintage hoài cổ, ấm áp đầy cá tính — lý tưởng cho những buổi sum họp đáng nhớ.</p>
+          <div class="amenities">
+            <span class="amenity">🎬 Máy chiếu</span>
+            <span class="amenity">🏡 Ban công</span>
+            <span class="amenity">🍳 Bếp mini</span>
+            <span class="amenity">🎲 Board Game</span>
+          </div>
+          <div class="room-footer">
+            <div><span class="room-price">780.000đ <span>/ ngày đêm</span></span></div>
+            <div style="display:flex;gap:8px;">
+              <a href="phong/vintage.html" class="btn btn-outline btn-sm">Xem phòng</a>
+              <a href="https://zalo.me/0911297249" target="_blank" class="btn btn-green btn-sm">Đặt phòng</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Minimalist Room -->
+      <div class="card reveal d2">
+        <a href="phong/minimalist.html" class="room-img-wrap" style="display:block;">
+          <img src="Ala2/Minimalist1.JPG" alt="Minimalist Room" class="room-img" loading="lazy" />
+        </a>
+        <div class="room-body">
+          <div class="room-header">
+            <h3 class="room-name">Minimalist Room</h3>
+            <span class="room-badge">Từ 400k</span>
+          </div>
+          <p class="room-desc">Tinh tế, tối giản, thanh lịch — dành cho những ai yêu thích sự đơn giản trong từng chi tiết.</p>
+          <div class="amenities">
+            <span class="amenity">🎬 Máy chiếu</span>
+            <span class="amenity">🏡 Ban công</span>
+            <span class="amenity">🍳 Bếp mini</span>
+          </div>
+          <div class="room-footer">
+            <div><span class="room-price">780.000đ <span>/ ngày đêm</span></span></div>
+            <div style="display:flex;gap:8px;">
+              <a href="phong/minimalist.html" class="btn btn-outline btn-sm">Xem phòng</a>
+              <a href="https://zalo.me/0911297249" target="_blank" class="btn btn-green btn-sm">Đặt phòng</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cozy Room -->
+      <div class="card reveal d3">
+        <a href="phong/cozy.html" class="room-img-wrap" style="display:block;">
+          <img src="Ala3/Cozy1.JPG" alt="Cozy Room" class="room-img" loading="lazy" />
+        </a>
+        <div class="room-body">
+          <div class="room-header">
+            <h3 class="room-name">Cozy Room</h3>
+            <span class="room-badge">Từ 400k</span>
+          </div>
+          <p class="room-desc">Ấm cúng như ngôi nhà của bạn — 2 ban công thoáng mát, không gian thư giãn và kết nối.</p>
+          <div class="amenities">
+            <span class="amenity">🎬 Máy chiếu</span>
+            <span class="amenity">🏡 2 Ban công</span>
+            <span class="amenity">🍳 Bếp mini</span>
+          </div>
+          <div class="room-footer">
+            <div><span class="room-price">780.000đ <span>/ ngày đêm</span></span></div>
+            <div style="display:flex;gap:8px;">
+              <a href="phong/cozy.html" class="btn btn-outline btn-sm">Xem phòng</a>
+              <a href="https://zalo.me/0911297249" target="_blank" class="btn btn-green btn-sm">Đặt phòng</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tiny Room 1 -->
+      <div class="card reveal d4">
+        <a href="phong/tiny-1.html" class="room-img-wrap" style="display:block;">
+          <img src="Ala4/IMG_6239.JPG" alt="Tiny Room 1" class="room-img" loading="lazy" />
+        </a>
+        <div class="room-body">
+          <div class="room-header">
+            <h3 class="room-name">Tiny Room <span style="font-size:0.8125rem;color:var(--muted);font-weight:400;">×2</span></h3>
+            <span class="room-badge">Từ 350k</span>
+          </div>
+          <p class="room-desc">Gọn gàng, đầy đủ tiện nghi — lựa chọn kinh tế cho chuyến nghỉ nhanh hay combo 3 tiếng.</p>
+          <div class="amenities">
+            <span class="amenity">🎬 Máy chiếu</span>
+            <span class="amenity">🏡 Ban công</span>
+            <span class="amenity">🍳 Bếp mini</span>
+          </div>
+          <div class="room-footer">
+            <div><span class="room-price">680.000đ <span>/ ngày đêm</span></span></div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <a href="phong/tiny-1.html" class="btn btn-outline btn-sm">Phòng 1</a>
+              <a href="phong/tiny-2.html" class="btn btn-outline btn-sm">Phòng 2</a>
+              <a href="https://zalo.me/0911297249" target="_blank" class="btn btn-green btn-sm">Đặt phòng</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     FEATURES
+════════════════════════════════════════ -->
+<section class="alt" id="features">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="label">Điểm nổi bật</span>
+      <div class="divider center"></div>
+      <h2 class="section-title">Tại sao chọn ÀlaHome?</h2>
+    </div>
+    <div class="features-grid reveal">
+      <div class="feature-item">
+        <div class="feature-icon">🎬</div>
+        <h3 class="feature-title">Máy chiếu</h3>
+        <p class="feature-desc">Mỗi phòng đều có máy chiếu độ nét cao — xem phim, thể thao, họp nhóm cực đỉnh.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🏡</div>
+        <h3 class="feature-title">Ban công riêng</h3>
+        <p class="feature-desc">Không gian thoáng mát, riêng tư — tận hưởng buổi sáng cùng ly cà phê trên tay.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🍳</div>
+        <h3 class="feature-title">Bếp mini</h3>
+        <p class="feature-desc">Tự nấu bữa sáng hay pha đồ uống — bếp đầy đủ dụng cụ cơ bản, sạch sẽ.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🔑</div>
+        <h3 class="feature-title">Check-in 24/7</h3>
+        <p class="feature-desc">Nhận mã cửa qua điện thoại — check-in bất kỳ lúc nào, không cần gặp mặt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     PRICING
+════════════════════════════════════════ -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="label">Bảng giá</span>
+      <div class="divider center"></div>
+      <h2 class="section-title">Giá rõ ràng, không phụ thu ẩn</h2>
+      <p class="section-sub">Chọn loại giờ phù hợp — ngày đêm, đêm, hoặc combo 3 tiếng buổi chiều.</p>
+    </div>
+
+    <div class="pricing-card reveal">
+      <div class="price-tabs" role="tablist">
+        <button class="price-tab active" id="tab-main" onclick="switchTab('main')" role="tab">Vintage · Minimalist · Cozy</button>
+        <button class="price-tab"        id="tab-tiny" onclick="switchTab('tiny')" role="tab">Tiny Room</button>
+      </div>
+
+      <div id="table-main">
+        <div style="overflow-x:auto;">
+          <table class="price-table">
+            <thead>
+              <tr>
+                <th>Loại</th>
+                <th>Giờ</th>
+                <th>Giá</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td style="font-weight:500;">Ngày đêm</td><td style="color:var(--muted);">14:00 → 12:00 hôm sau</td><td><span class="price-val">780.000đ</span></td></tr>
+              <tr><td style="font-weight:500;">Đêm</td><td style="color:var(--muted);">21:00 → 12:00 hôm sau</td><td><span class="price-val">670.000đ</span></td></tr>
+              <tr><td style="font-weight:500;">Combo 3 giờ</td><td style="color:var(--muted);">13:00 → 19:00</td><td><span class="price-val">400.000đ</span></td></tr>
+              <tr><td style="color:var(--muted);">Giờ tiếp theo</td><td style="color:var(--muted);">+1 giờ bổ sung</td><td style="font-weight:600; color:var(--muted);">75.000đ / giờ</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="price-note">⚠️ Tối đa 3 khách/phòng · Từ khách thứ 3: phụ thu <strong>100.000đ/khách</strong></div>
+      </div>
+
+      <div id="table-tiny" style="display:none;">
+        <div style="overflow-x:auto;">
+          <table class="price-table">
+            <thead>
+              <tr>
+                <th>Loại</th>
+                <th>Giờ</th>
+                <th>Giá</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td style="font-weight:500;">Ngày đêm</td><td style="color:var(--muted);">14:00 → 11:00 hôm sau</td><td><span class="price-val">680.000đ</span></td></tr>
+              <tr><td style="font-weight:500;">Đêm</td><td style="color:var(--muted);">21:00 → 11:00 hôm sau</td><td><span class="price-val">590.000đ</span></td></tr>
+              <tr><td style="font-weight:500;">Combo 3 giờ</td><td style="color:var(--muted);">13:00 → 19:00</td><td><span class="price-val">350.000đ</span></td></tr>
+              <tr><td style="color:var(--muted);">Giờ tiếp theo</td><td style="color:var(--muted);">+1 giờ bổ sung</td><td style="font-weight:600; color:var(--muted);">70.000đ / giờ</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="price-note">⚠️ Tối đa 3 khách/phòng · Từ khách thứ 3: phụ thu <strong>100.000đ/khách</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     HOW TO BOOK
+════════════════════════════════════════ -->
+<section class="alt" id="how-to-book">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="label">Quy trình</span>
+      <div class="divider center"></div>
+      <h2 class="section-title">Đặt phòng trong 5 bước</h2>
+      <p class="section-sub">Đơn giản, nhanh chóng — chỉ mất vài phút là xong.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step reveal d1">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <h4>Xem phòng & bảng giá</h4>
+          <p>Duyệt qua các phòng, chọn loại giá phù hợp với lịch trình của bạn.</p>
+        </div>
+      </div>
+      <div class="step reveal d2">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <h4>Kiểm tra phòng trống</h4>
+          <p>Nhắn tin Zalo hoặc Facebook để xác nhận phòng còn trống ngày bạn chọn.</p>
+        </div>
+      </div>
+      <div class="step reveal d3">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <h4>Xác nhận đặt phòng</h4>
+          <p>Thông báo ngày giờ, số khách với admin để giữ phòng cho bạn.</p>
+        </div>
+      </div>
+      <div class="step reveal d4">
+        <div class="step-num">4</div>
+        <div class="step-text">
+          <h4>Thanh toán & gửi CCCD</h4>
+          <p>Thanh toán 100% qua chuyển khoản, gửi kèm ảnh CCCD/CMT cho admin.</p>
+        </div>
+      </div>
+      <div class="step reveal d5">
+        <div class="step-num accent">5</div>
+        <div class="step-text">
+          <h4>Nhận hướng dẫn check-in</h4>
+          <p>Nhận mã cửa & hướng dẫn tự check-in qua Zalo — không cần gặp mặt!</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:52px;" class="reveal">
+      <a href="https://zalo.me/0911297249" target="_blank" class="btn btn-green" style="padding:15px 44px; font-size:1rem; gap:10px;">
+        Nhắn tin Zalo ngay
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     CANCELLATION POLICY
+════════════════════════════════════════ -->
+<section id="policy">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="label">Chính sách</span>
+      <div class="divider center"></div>
+      <h2 class="section-title">Hủy phòng & Đổi lịch</h2>
+    </div>
+    <div class="policy-grid" style="max-width:860px; margin:0 auto;">
+      <div class="policy-card green reveal d1">
+        <div class="policy-emoji">✅</div>
+        <div class="policy-tag green">Trước 7+ ngày</div>
+        <div class="policy-value">Hoàn 100%</div>
+        <div class="policy-note">Phụ phí chuyển khoản: 80.000đ</div>
+      </div>
+      <div class="policy-card yellow reveal d2">
+        <div class="policy-emoji">⚠️</div>
+        <div class="policy-tag yellow">Trước 4–6 ngày</div>
+        <div class="policy-value">Hoàn 50%</div>
+        <div class="policy-note">Một phần tiền được hoàn lại</div>
+      </div>
+      <div class="policy-card red reveal d3">
+        <div class="policy-emoji">❌</div>
+        <div class="policy-tag red">Dưới 4 ngày</div>
+        <div class="policy-value">Không hoàn tiền</div>
+        <div class="policy-note">Vui lòng cân nhắc kỹ trước khi đặt</div>
+      </div>
+      <div class="policy-card blue reveal d4">
+        <div class="policy-emoji">📅</div>
+        <div class="policy-tag blue">Đổi lịch</div>
+        <div class="policy-value">Báo trước 4 ngày</div>
+        <div class="policy-note">Lần 1 miễn phí · Lần 2+: 50.000đ</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     CONTACT
+════════════════════════════════════════ -->
+<section class="alt" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="reveal">
+        <span class="label">Liên hệ</span>
+        <div class="divider"></div>
+        <h2 class="section-title">Bắt đầu trải nghiệm ngay</h2>
+        <p style="color:var(--muted); margin-bottom:28px; line-height:1.8; max-width:440px;">Còn thắc mắc? Đội ngũ ÀlaHome luôn sẵn sàng hỗ trợ bạn qua Zalo hoặc Facebook.</p>
+
+        <a href="https://maps.google.com/?q=370+Điện+Biên+Phủ,+Phường+Vườn+Lài,+TP.HCM" target="_blank" class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div><div class="contact-label">Địa chỉ</div><div class="contact-value">370 Điện Biên Phủ, Phường Vườn Lài, TP. Hồ Chí Minh</div></div>
+        </a>
+        <a href="tel:0911297249" class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div><div class="contact-label">Điện thoại / Zalo</div><div class="contact-value">0911 297 249</div></div>
+        </a>
+        <a href="mailto:alahome.saigon@gmail.com" class="contact-item" style="border-bottom:none;">
+          <div class="contact-icon">✉️</div>
+          <div><div class="contact-label">Email</div><div class="contact-value">alahome.saigon@gmail.com</div></div>
+        </a>
+
+        <div class="contact-social">
+          <a href="https://zalo.me/0911297249" target="_blank" class="social-btn zalo">
+            <svg width="16" height="16" viewBox="0 0 40 40" fill="white"><text y="28" font-size="22" font-weight="bold">Z</text></svg>
+            Zalo
+          </a>
+          <a href="https://www.facebook.com/profile.php?id=61564387397128" target="_blank" class="social-btn fb">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            Facebook
+          </a>
+          <a href="https://www.instagram.com/alahome.saigon/" target="_blank" class="social-btn ig">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none"/></svg>
+            Instagram
+          </a>
+        </div>
+      </div>
+
+      <div class="reveal d2">
+        <div class="contact-map">
+          <div style="font-size:2.5rem;">🗺️</div>
+          <div style="text-align:center; padding:0 20px;">
+            <p style="font-weight:600; font-size:0.9375rem; margin-bottom:6px;">370 Điện Biên Phủ</p>
+            <p style="font-size:0.875rem; color:var(--muted);">Phường Vườn Lài, TP. Hồ Chí Minh</p>
+          </div>
+          <a href="https://maps.google.com/?q=370+Điện+Biên+Phủ,+Phường+Vườn+Lài,+TP.HCM" target="_blank" class="btn btn-green btn-sm">Xem trên Google Maps</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-main">
+      <div>
+        <div class="footer-brand-name">ÀlaHome</div>
+        <div class="footer-brand-sub">Good space, good service</div>
+        <p class="footer-desc">Homestay tại TP. Hồ Chí Minh — không gian ấm cúng, tiện nghi đầy đủ, check-in tự động 24/7.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Khám phá</div>
+        <ul class="footer-links">
+          <li><a href="#rooms">Các phòng</a></li>
+          <li><a href="#pricing">Bảng giá</a></li>
+          <li><a href="#how-to-book">Cách đặt phòng</a></li>
+          <li><a href="#policy">Chính sách hủy</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Liên hệ</div>
+        <ul class="footer-links">
+          <li><a href="tel:0911297249">0911 297 249</a></li>
+          <li><a href="mailto:alahome.saigon@gmail.com">alahome.saigon@gmail.com</a></li>
+          <li><a href="https://www.facebook.com/profile.php?id=61564387397128" target="_blank">Facebook</a></li>
+          <li><a href="https://www.instagram.com/alahome.saigon/" target="_blank">Instagram</a></li>
+          <li><a href="https://zalo.me/0911297249" target="_blank">Zalo</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 ÀlaHome. All rights reserved.</span>
+      <span>370 Điện Biên Phủ, Phường Vườn Lài, TP.HCM</span>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ════════════════════════════════════════
+     STICKY MOBILE CTA
+════════════════════════════════════════ -->
+<div class="sticky-cta">
+  <a href="https://zalo.me/0911297249" target="_blank" class="btn btn-green" style="width:100%;justify-content:center;font-size:0.9375rem;padding:13px;">
+    💬 Đặt phòng qua Zalo — 0911 297 249
+  </a>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════ -->
+<script>
+  // ── Screenshot mode (disable reveals for headless) ──
+  if (location.search.includes('ss')) {
+    document.documentElement.classList.add('no-reveal');
+    document.documentElement.classList.add('preview-mode');
+  }
+
+  // ── Navbar scroll effect ──
+  const nav = document.getElementById('nav');
+  const hamIcon = document.getElementById('ham-icon').querySelector('path');
+
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY > 60;
+    nav.classList.toggle('scrolled', scrolled);
+    if (hamIcon) hamIcon.setAttribute('stroke', scrolled ? '#1A1A1A' : 'white');
+  }, { passive: true });
+
+  // ── Hero ken burns ──
+  window.addEventListener('load', () => {
+    document.getElementById('heroBg').classList.add('loaded');
+  });
+
+  // ── Mobile drawer ──
+  const drawer         = document.getElementById('drawer');
+  const drawerOverlay  = document.getElementById('drawerOverlay');
+  const hamburger      = document.getElementById('hamburger');
+  const drawerClose    = document.getElementById('drawerClose');
+
+  function openDrawer() {
+    drawer.classList.add('open');
+    drawerOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    hamburger.setAttribute('aria-expanded', 'true');
+  }
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    drawerOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+    hamburger.setAttribute('aria-expanded', 'false');
+  }
+  hamburger.addEventListener('click', openDrawer);
+  drawerClose.addEventListener('click', closeDrawer);
+  drawerOverlay.addEventListener('click', closeDrawer);
+  document.querySelectorAll('.drawer-link').forEach(a => a.addEventListener('click', closeDrawer));
+
+  // ── Scroll reveal ──
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer  = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => observer.observe(el));
+
+  // Trigger for elements already in view
+  setTimeout(() => {
+    revealEls.forEach(el => {
+      if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('in');
+    });
+  }, 80);
+
+  // ── Pricing tabs ──
+  function switchTab(type) {
+    const isMain = type === 'main';
+    document.getElementById('table-main').style.display = isMain ? 'block' : 'none';
+    document.getElementById('table-tiny').style.display = isMain ? 'none'  : 'block';
+    document.getElementById('tab-main').classList.toggle('active', isMain);
+    document.getElementById('tab-tiny').classList.toggle('active', !isMain);
+  }
+
+  // ── Button press animation (all interactive elements) ──
+  document.querySelectorAll('.btn, .price-tab, .card, .contact-item, .social-btn, .step').forEach(el => {
+    el.addEventListener('pointerdown', () => {
+      el.style.transition = 'transform 0.1s, opacity 0.1s';
+      el.style.transform  = 'scale(0.97)';
+      el.style.opacity    = '0.88';
+    });
+    const reset = () => {
+      el.style.transform = '';
+      el.style.opacity   = '';
+      setTimeout(() => { el.style.transition = ''; }, 150);
+    };
+    el.addEventListener('pointerup',    reset);
+    el.addEventListener('pointerleave', reset);
+    el.addEventListener('pointercancel',reset);
+  });
+
+  // ── Smooth section offset for fixed nav ──
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      const offset = nav.offsetHeight + 16;
+      window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' });
+    });
+  });
+
+  // ══════════════════════════════════════
+  // SEARCH BAR
+  // ══════════════════════════════════════
+  (function () {
+    let adults = 2, babies = 0;
+
+    const checkinDateEl  = document.getElementById('checkinDate');
+    const checkoutDateEl = document.getElementById('checkoutDate');
+    const checkinTimeEl  = document.getElementById('checkinTime');
+    const checkoutTimeEl = document.getElementById('checkoutTime');
+    const sfCheckinVal   = document.getElementById('sfCheckinVal');
+    const sfCheckoutVal  = document.getElementById('sfCheckoutVal');
+    const sfGuestVal     = document.getElementById('sfGuestVal');
+    const guestPicker    = document.getElementById('guestPicker');
+    const guestsField    = document.getElementById('sfGuestsField');
+
+    function fmtDate(d) {
+      const [y, m, day] = d.split('-');
+      const months = ['Th1','Th2','Th3','Th4','Th5','Th6','Th7','Th8','Th9','Th10','Th11','Th12'];
+      return `${parseInt(day)} ${months[parseInt(m)-1]}`;
+    }
+
+    function isSameDay() {
+      return checkinDateEl.value && checkoutDateEl.value &&
+             checkinDateEl.value === checkoutDateEl.value;
+    }
+
+    function updateTimePickers() {
+      if (!checkinDateEl.value || !checkoutDateEl.value) return;
+      if (isSameDay()) {
+        checkinTimeEl.innerHTML = '';
+        for (let h = 13; h <= 17; h++) {
+          const o = document.createElement('option');
+          o.value = o.text = `${h}:00`;
+          checkinTimeEl.appendChild(o);
+        }
+        refreshCheckoutTimeSameDay();
+      } else {
+        checkinTimeEl.innerHTML =
+          '<option value="">Chọn giờ</option>' +
+          '<option value="14:00">14:00 — nhận phòng ban ngày</option>' +
+          '<option value="21:00">21:00 — thuê qua đêm</option>';
+        checkoutTimeEl.innerHTML = '<option value="12:00">12:00</option>';
+      }
+    }
+
+    function refreshCheckoutTimeSameDay() {
+      const selectedHour = parseInt(checkinTimeEl.value) || 13;
+      checkoutTimeEl.innerHTML = '';
+      for (let h = selectedHour + 3; h <= 20; h++) {
+        const o = document.createElement('option');
+        o.value = o.text = `${h}:00`;
+        checkoutTimeEl.appendChild(o);
+      }
+    }
+
+    checkinDateEl.addEventListener('change', () => {
+      const v = checkinDateEl.value;
+      sfCheckinVal.innerHTML = v ? fmtDate(v) : '<span class="sf-placeholder">Chọn ngày</span>';
+      updateTimePickers();
+    });
+
+    checkoutDateEl.addEventListener('change', () => {
+      const v = checkoutDateEl.value;
+      sfCheckoutVal.innerHTML = v ? fmtDate(v) : '<span class="sf-placeholder">Chọn ngày</span>';
+      updateTimePickers();
+    });
+
+    checkinTimeEl.addEventListener('change', () => {
+      if (isSameDay()) refreshCheckoutTimeSameDay();
+    });
+
+    // ── Calendar picker ──
+    const calToday = new Date().toISOString().split('T')[0];
+    let calCin = '', calCout = '', calSelecting = 'cin';
+    let calVYear = new Date().getFullYear(), calVMonth = new Date().getMonth();
+
+    function calFmtMth(y, m) {
+      return new Date(y, m).toLocaleDateString('vi-VN', { month: 'long', year: 'numeric' });
+    }
+
+    function calBuildGrid(y, m) {
+      const firstDay    = new Date(y, m, 1).getDay();
+      const daysInMonth = new Date(y, m + 1, 0).getDate();
+      const offset      = firstDay === 0 ? 6 : firstDay - 1;
+      let h = '<div class="cal-days-grid">';
+      for (let i = 0; i < offset; i++) h += '<div class="cal-d empty"></div>';
+      for (let d = 1; d <= daysInMonth; d++) {
+        const ds = `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+        let cls = 'cal-d';
+        if (ds < calToday) cls += ' past';
+        if (ds === calToday) cls += ' today';
+        if (calCin && calCout) {
+          if (ds === calCin && ds === calCout) cls += ' range-start range-end';
+          else if (ds === calCin)  cls += ' range-start';
+          else if (ds === calCout) cls += ' range-end';
+          else if (ds > calCin && ds < calCout) cls += ' in-range';
+        } else if (calCin && ds === calCin) cls += ' selected';
+        h += `<div class="${cls}" data-date="${ds}"><span>${d}</span></div>`;
+      }
+      return h + '</div>';
+    }
+
+    function calRender() {
+      const isMob = window.innerWidth < 640;
+      const n = isMob ? 1 : 2;
+      const cont = document.getElementById('calMonthsContainer');
+      let html = '';
+      for (let i = 0; i < n; i++) {
+        let m = calVMonth + i, y = calVYear;
+        while (m > 11) { m -= 12; y++; }
+        html += `<div class="cal-m${i > 0 ? ' cal-m-right' : ''}">
+          <div class="cal-m-hdr">
+            <button class="cal-nav-btn${i > 0 ? ' cal-nav-invis' : ''}" data-nav="prev" type="button">‹</button>
+            <span class="cal-m-title">${calFmtMth(y, m)}</span>
+            <button class="cal-nav-btn${i < n-1 ? ' cal-nav-invis' : ''}" data-nav="next" type="button">›</button>
+          </div>
+          <div class="cal-wdays"><span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span>T7</span><span>CN</span></div>
+          ${calBuildGrid(y, m)}
+        </div>`;
+      }
+      cont.innerHTML = html;
+
+      cont.querySelector('[data-nav="prev"]').addEventListener('click', e => {
+        e.stopPropagation();
+        calVMonth--; if (calVMonth < 0) { calVMonth = 11; calVYear--; }
+        calRender();
+      });
+      cont.querySelector('[data-nav="next"]').addEventListener('click', e => {
+        e.stopPropagation();
+        calVMonth++; if (calVMonth > 11) { calVMonth = 0; calVYear++; }
+        calRender();
+      });
+      cont.querySelectorAll('.cal-d:not(.empty):not(.past)').forEach(el => {
+        el.addEventListener('click', e => { e.stopPropagation(); calSelect(el.dataset.date); });
+      });
+
+      const lbl = document.getElementById('calNightsLabel');
+      if (!calCin) lbl.textContent = 'Chọn ngày nhận phòng';
+      else if (!calCout) lbl.textContent = 'Chọn ngày trả phòng';
+      else {
+        const diff = Math.round((new Date(calCout) - new Date(calCin)) / 86400000);
+        lbl.textContent = diff === 0 ? 'Thuê theo giờ — cùng ngày' : `${diff} đêm`;
+      }
+    }
+
+    function calSelect(ds) {
+      if (calSelecting === 'cin' || !calCin) {
+        calCin = ds; calCout = ''; calSelecting = 'cout';
+        calRender();
+      } else {
+        if (ds < calCin) { calCout = calCin; calCin = ds; }
+        else              { calCout = ds; }
+        calSelecting = 'cin';
+        checkinDateEl.value  = calCin;  checkinDateEl.dispatchEvent(new Event('change'));
+        checkoutDateEl.value = calCout; checkoutDateEl.dispatchEvent(new Event('change'));
+        calRender();
+        setTimeout(calClose, 180);
+      }
+    }
+
+    function calOpen(mode) {
+      calSelecting = mode;
+      const w = document.getElementById('calWrapper');
+      w.style.display = 'block';
+      calRender();
+      setTimeout(() => document.addEventListener('click', calOutside), 0);
+    }
+
+    function calClose() {
+      document.getElementById('calWrapper').style.display = 'none';
+      document.removeEventListener('click', calOutside);
+    }
+
+    function calOutside(e) {
+      const w = document.getElementById('calWrapper');
+      const cin = document.getElementById('sfCheckinField');
+      const cout = document.getElementById('sfCheckoutField');
+      if (!w.contains(e.target) && !cin.contains(e.target) && !cout.contains(e.target)) calClose();
+    }
+
+    document.getElementById('sfCheckinField').addEventListener('click', e => {
+      e.stopPropagation();
+      const w = document.getElementById('calWrapper');
+      (w.style.display === 'block' && calSelecting === 'cin') ? calClose() : calOpen('cin');
+    });
+    document.getElementById('sfCheckoutField').addEventListener('click', e => {
+      e.stopPropagation();
+      const w = document.getElementById('calWrapper');
+      (w.style.display === 'block' && calSelecting === 'cout') ? calClose() : calOpen('cout');
+    });
+    document.getElementById('calWrapper').addEventListener('click', e => e.stopPropagation());
+
+    // ── Guest picker ──
+    guestsField.addEventListener('click', e => { e.stopPropagation(); guestPicker.classList.toggle('open'); });
+    document.addEventListener('click', () => guestPicker.classList.remove('open'));
+    guestPicker.addEventListener('click', e => e.stopPropagation());
+
+    function refreshGuestUI() {
+      document.getElementById('adultCount').textContent = adults;
+      document.getElementById('babyCount').textContent  = babies;
+      document.getElementById('adultMinus').disabled = adults <= 1;
+      document.getElementById('adultPlus').disabled  = adults >= 3;
+      document.getElementById('babyMinus').disabled  = babies <= 0;
+      document.getElementById('babyPlus').disabled   = babies >= 1;
+      sfGuestVal.textContent = adults + ' người lớn' + (babies > 0 ? `, ${babies} em bé` : '');
+    }
+
+    document.getElementById('adultMinus').addEventListener('click', e => { e.stopPropagation(); adults = Math.max(1, adults-1); refreshGuestUI(); });
+    document.getElementById('adultPlus').addEventListener('click',  e => { e.stopPropagation(); adults = Math.min(3, adults+1); refreshGuestUI(); });
+    document.getElementById('babyMinus').addEventListener('click',  e => { e.stopPropagation(); babies = Math.max(0, babies-1); refreshGuestUI(); });
+    document.getElementById('babyPlus').addEventListener('click',   e => { e.stopPropagation(); babies = Math.min(1, babies+1); refreshGuestUI(); });
+    refreshGuestUI();
+
+    // ── Submit ──
+    document.getElementById('searchSubmitBtn').addEventListener('click', () => {
+      const cin   = checkinDateEl.value;
+      const cout  = checkoutDateEl.value;
+      const cint  = checkinTimeEl.value;
+      const coutt = checkoutTimeEl.value;
+      if (!cin || !cout) { alert('Vui lòng chọn ngày nhận và trả phòng.'); return; }
+      if (!cint)         { alert('Vui lòng chọn giờ nhận phòng.'); return; }
+      window.location.href = 'dat-phong.html?' + new URLSearchParams({ cin, cout, cint, coutt, adults, babies });
+    });
+  })();
+</script>
+
+</body>
+</html>

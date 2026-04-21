@@ -1,0 +1,29 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    },
+    {
+      "source": "/Ala:num/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    }
+  ],
+  "rewrites": [
+    { "source": "/dat-phong", "destination": "/dat-phong.html" },
+    { "source": "/xac-nhan", "destination": "/xac-nhan.html" },
+    { "source": "/phong/vintage", "destination": "/phong/vintage.html" },
+    { "source": "/phong/minimalist", "destination": "/phong/minimalist.html" },
+    { "source": "/phong/cozy", "destination": "/phong/cozy.html" },
+    { "source": "/phong/tiny-1", "destination": "/phong/tiny-1.html" },
+    { "source": "/phong/tiny-2", "destination": "/phong/tiny-2.html" }
+  ]
+}

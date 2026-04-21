@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Cozy Room tại ÀlaHome — Ấm cúng với 2 ban công, máy chiếu và bếp mini. Đặt phòng từ 400.000đ." />
+  <title>Cozy Room — ÀlaHome</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { background: #F8F5F0; color: #1A1A1A; font-family: 'Inter', system-ui, sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    :root { --green: #4A6741; --green-light: #6B8F5E; --green-pale: #EBF2E8; --green-dark: #2D3F28; --accent: #C4A882; --bg: #F8F5F0; --white: #FFFFFF; --border: #E2DDD7; --text: #1A1A1A; --muted: #6B6560; }
+    h1, h2, h3, h4 { font-family: 'Playfair Display', Georgia, serif; line-height: 1.2; }
+    .label { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; display: block; }
+    .divider { width: 40px; height: 3px; background: var(--green); border-radius: 2px; margin-bottom: 20px; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    @media (min-width: 768px) { .container { padding: 0 48px; } }
+    section { padding: 72px 0; } section.alt { background: var(--white); }
+    @media (max-width: 767px) { section { padding: 48px 0; } }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 13px 28px; border-radius: 4px; font-family: 'Inter', sans-serif; font-size: 0.9375rem; font-weight: 500; cursor: pointer; text-decoration: none; border: 1.5px solid transparent; transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.12s; -webkit-tap-highlight-color: transparent; outline: none; white-space: nowrap; }
+    .btn:active { transform: scale(0.96); }
+    .btn-green { background: var(--green); color: #fff; border-color: var(--green); } .btn-green:hover { background: #3d5636; border-color: #3d5636; }
+    .btn-outline { background: transparent; color: var(--green); border-color: var(--green); } .btn-outline:hover { background: var(--green); color: #fff; }
+    .btn-sm { padding: 9px 20px; font-size: 0.875rem; }
+    .btn-ghost { background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.4); } .btn-ghost:hover { background: rgba(255,255,255,0.25); }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.d1 { transition-delay: 0.08s; } .reveal.d2 { transition-delay: 0.16s; } .reveal.d3 { transition-delay: 0.24s; } .reveal.d4 { transition-delay: 0.32s; }
+    .reveal.in { opacity: 1; transform: none; }
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 18px 0; background: rgba(255,255,255,0.96); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 1px 0 var(--border); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .logo { text-decoration: none; line-height: 1; }
+    .logo-name { font-family: 'Playfair Display', serif; font-size: 1.375rem; font-weight: 700; color: var(--green); display: block; }
+    .logo-sub { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); font-weight: 500; display: block; margin-top: 2px; }
+    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--muted); text-decoration: none; transition: color 0.2s; } .nav-links a:hover { color: var(--green); }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; -webkit-tap-highlight-color: transparent; }
+    @media (max-width: 767px) { .nav-links, .nav-cta { display: none !important; } .hamburger { display: flex; } }
+    .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.48); z-index: 190; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .drawer-overlay.open { opacity: 1; pointer-events: all; }
+    .drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(300px, 82vw); background: var(--white); z-index: 200; padding: 72px 28px 32px; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); overflow-y: auto; }
+    .drawer.open { transform: none; }
+    .drawer-close { position: absolute; top: 18px; right: 18px; background: none; border: none; cursor: pointer; padding: 8px; transition: transform 0.15s; } .drawer-close:active { transform: scale(0.9); }
+    .drawer-links { list-style: none; } .drawer-links li { border-bottom: 1px solid var(--border); }
+    .drawer-links a { display: block; padding: 16px 0; font-size: 1rem; font-weight: 500; text-decoration: none; color: var(--text); transition: color 0.2s; } .drawer-links a:hover { color: var(--green); }
+    .drawer-btns { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
+    .room-hero { position: relative; height: 72vh; min-height: 480px; max-height: 700px; overflow: hidden; margin-top: 57px; }
+    @media (max-width: 767px) { .room-hero { height: 56vh; min-height: 360px; margin-top: 53px; } }
+    .room-hero-bg { position: absolute; inset: 0; background: url('../Ala3/Cozy1.JPG') center/cover no-repeat; transform: scale(1.04); transition: transform 0.9s ease; }
+    .room-hero-bg.loaded { transform: scale(1); }
+    .room-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.18) 40%, rgba(0,0,0,0.62) 100%); }
+    .room-hero-body { position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 0 0 44px; }
+    .room-hero-body .container { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    .room-hero-tag { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; display: block; }
+    .room-hero-title { font-size: clamp(2.25rem, 6vw, 3.5rem); font-weight: 700; color: #fff; line-height: 1.05; margin-bottom: 10px; }
+    .room-hero-sub { font-size: 1rem; color: rgba(255,255,255,0.8); font-style: italic; }
+    .room-hero-ctas { display: flex; gap: 10px; flex-wrap: wrap; }
+    @media (max-width: 600px) { .room-hero-ctas { display: none; } }
+    .breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 0.8125rem; color: var(--muted); padding: 14px 0; }
+    .breadcrumb a { text-decoration: none; color: var(--muted); transition: color 0.2s; } .breadcrumb a:hover { color: var(--green); }
+    .breadcrumb-sep { color: var(--border); } .breadcrumb-current { color: var(--text); font-weight: 500; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    @media (max-width: 599px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+    .gallery-item { aspect-ratio: 4/3; overflow: hidden; border-radius: 6px; cursor: zoom-in; position: relative; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; display: block; }
+    .gallery-item:hover img { transform: scale(1.06); }
+    .gallery-item::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0); transition: background 0.3s; border-radius: 6px; }
+    .gallery-item:hover::after { background: rgba(0,0,0,0.12); }
+    .lightbox { position: fixed; inset: 0; z-index: 400; background: rgba(0,0,0,0.93); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.22s ease; }
+    .lightbox.open { opacity: 1; pointer-events: all; }
+    .lightbox-inner { position: relative; max-width: 90vw; max-height: 88vh; display: flex; align-items: center; justify-content: center; }
+    .lightbox-img { max-width: 88vw; max-height: 84vh; object-fit: contain; border-radius: 4px; transform: scale(0.94); transition: transform 0.22s ease; user-select: none; }
+    .lightbox.open .lightbox-img { transform: scale(1); }
+    .lightbox-close { position: fixed; top: 16px; right: 16px; width: 40px; height: 40px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 50%; color: #fff; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s, transform 0.1s; -webkit-tap-highlight-color: transparent; }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); } .lightbox-close:active { transform: scale(0.92); }
+    .lightbox-nav { position: fixed; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; color: #fff; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s, transform 0.1s; -webkit-tap-highlight-color: transparent; }
+    .lightbox-nav:hover { background: rgba(255,255,255,0.22); } .lightbox-nav:active { transform: translateY(-50%) scale(0.92); }
+    .lightbox-prev { left: 12px; } .lightbox-next { right: 12px; }
+    .lightbox-counter { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.6); font-size: 0.8125rem; letter-spacing: 0.06em; }
+    .amenities-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; }
+    @media (max-width: 480px) { .amenities-grid { grid-template-columns: repeat(2, 1fr); } }
+    .amenity-card { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: var(--white); border: 1px solid var(--border); border-radius: 8px; transition: border-color 0.2s, transform 0.2s; }
+    .amenity-card:hover { border-color: var(--green-light); transform: translateY(-2px); }
+    .amenity-icon { font-size: 1.375rem; flex-shrink: 0; line-height: 1; } .amenity-name { font-size: 0.9rem; font-weight: 500; line-height: 1.3; }
+    .pricing-wrap { max-width: 680px; }
+    .price-table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
+    .price-table th { text-align: left; padding: 14px 16px; background: var(--green-pale); color: var(--green); font-weight: 600; font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase; }
+    .price-table th:first-child { border-radius: 6px 0 0 0; } .price-table th:last-child { border-radius: 0 6px 0 0; text-align: right; }
+    .price-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; } .price-table td:last-child { text-align: right; }
+    .price-table tr:last-child td { border-bottom: none; }
+    .price-val { font-family: 'Playfair Display', serif; font-size: 1.125rem; font-weight: 700; color: var(--green); }
+    .price-note { margin-top: 12px; padding: 12px 16px; background: #FFF8F0; border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; font-size: 0.875rem; color: var(--muted); }
+    .cta-band { background: var(--green-dark); padding: 64px 0; text-align: center; }
+    .cta-band h2 { color: #fff; font-size: clamp(1.5rem, 4vw, 2rem); margin-bottom: 10px; }
+    .cta-band p { color: rgba(255,255,255,0.7); font-size: 1rem; margin-bottom: 32px; }
+    .cta-band-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    footer { background: var(--green-dark); color: rgba(255,255,255,0.75); border-top: 1px solid rgba(255,255,255,0.08); }
+    .footer-main { padding: 48px 0 32px; display: grid; grid-template-columns: 1fr; gap: 36px; }
+    @media (min-width: 768px) { .footer-main { grid-template-columns: 2fr 1fr 1fr; } }
+    .footer-brand-name { font-family: 'Playfair Display', serif; font-size: 1.375rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .footer-brand-sub { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+    .footer-desc { font-size: 0.875rem; line-height: 1.75; margin-top: 12px; max-width: 280px; color: rgba(255,255,255,0.55); }
+    .footer-heading { font-size: 0.8125rem; font-weight: 600; color: #fff; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 14px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: 0.875rem; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; } .footer-links a:hover { color: #fff; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding: 18px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 0.8125rem; color: rgba(255,255,255,0.3); }
+    .sticky-cta { position: fixed; bottom: 0; left: 0; right: 0; z-index: 80; padding: 10px 16px 14px; background: rgba(255,255,255,0.96); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-top: 1px solid var(--border); box-shadow: 0 -4px 20px rgba(0,0,0,0.07); }
+    @media (min-width: 768px) { .sticky-cta { display: none; } }
+    @media (max-width: 767px) { body { padding-bottom: 72px; } }
+    .section-head { margin-bottom: 40px; }
+    .section-title { font-size: clamp(1.5rem, 3.5vw, 2rem); color: var(--text); margin-bottom: 12px; }
+    .section-sub { font-size: 1rem; color: var(--muted); line-height: 1.75; }
+    .other-rooms { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+    .other-room-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; text-decoration: none; color: var(--text); transition: transform 0.25s ease, box-shadow 0.25s ease; display: block; }
+    .other-room-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+    .other-room-img { aspect-ratio: 16/9; overflow: hidden; }
+    .other-room-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .other-room-card:hover .other-room-img img { transform: scale(1.05); }
+    .other-room-info { padding: 14px 16px; }
+    .other-room-name { font-size: 0.9375rem; font-weight: 600; margin-bottom: 4px; }
+    .other-room-price { font-size: 0.8125rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="container"><div class="nav-inner">
+    <a href="../index.html" class="logo"><span class="logo-name">ÀlaHome</span><span class="logo-sub">Good space, good service</span></a>
+    <ul class="nav-links">
+      <li><a href="../index.html#rooms">Các phòng</a></li>
+      <li><a href="../index.html#pricing">Bảng giá</a></li>
+      <li><a href="../index.html#how-to-book">Đặt phòng</a></li>
+      <li><a href="../index.html#contact">Liên hệ</a></li>
+    </ul>
+    <a href="tel:0911297249" class="btn btn-green btn-sm nav-cta" style="gap:6px;">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 010 1.2 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      0911 297 249
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div></div>
+</nav>
+
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<div class="drawer" id="drawer">
+  <button class="drawer-close" id="drawerClose" aria-label="Đóng"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+  <ul class="drawer-links">
+    <li><a href="../index.html#rooms" class="drawer-link">Các phòng</a></li>
+    <li><a href="../index.html#pricing" class="drawer-link">Bảng giá</a></li>
+    <li><a href="../index.html#how-to-book" class="drawer-link">Đặt phòng</a></li>
+    <li><a href="../index.html#policy" class="drawer-link">Chính sách</a></li>
+    <li><a href="../index.html#contact" class="drawer-link">Liên hệ</a></li>
+  </ul>
+  <div class="drawer-btns">
+    <a href="tel:0911297249" class="btn btn-green" style="justify-content:center;">Gọi ngay: 0911 297 249</a>
+    <a href="https://zalo.me/0911297249" target="_blank" class="btn btn-outline" style="justify-content:center;">Nhắn Zalo</a>
+  </div>
+</div>
+
+<div class="room-hero">
+  <div class="room-hero-bg" id="heroBg"></div>
+  <div class="room-hero-overlay"></div>
+  <div class="room-hero-body">
+    <div class="container">
+      <div>
+        <span class="room-hero-tag">ÀlaHome · Cozy</span>
+        <h1 class="room-hero-title">Cozy Room</h1>
+        <p class="room-hero-sub">Ấm cúng như ngôi nhà của bạn — 2 ban công thoáng mát</p>
+      </div>
+      <div class="room-hero-ctas">
+        <a href="https://zalo.me/0911297249" target="_blank" class="btn btn-green" style="gap:8px;">Đặt phòng qua Zalo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <a href="#gallery" class="btn btn-ghost">Xem ảnh phòng</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="background:var(--white); border-bottom:1px solid var(--border);">
+  <div class="container">
+    <nav class="breadcrumb">
+      <a href="../index.html">Trang chủ</a><span class="breadcrumb-sep">›</span>
+      <a href="../index.html#rooms">Các phòng</a><span class="breadcrumb-sep">›</span>
+      <span class="breadcrumb-current">Cozy Room</span>
+    </nav>
+  </div>
+</div>
+
+<section id="gallery">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="label">Hình ảnh thực tế</span>
+      <div class="divider"></div>
+      <h2 class="section-title">Gallery — Cozy Room</h2>
+      <p class="section-sub">Ảnh chụp thực tế, không chỉnh sửa — bấm để xem toàn màn hình.</p>
+    </div>
+    <div class="gallery-grid reveal d1" id="galleryGrid">
+      <div class="gallery-item" data-idx="0"><img src="../Ala3/Cozy1.JPG" alt="Cozy Room — tổng thể" loading="eager" /></div>
+      <div class="gallery-item" data-idx="1"><img src="../Ala3/Cozy2.JPG" alt="Cozy Room" loading="lazy" /></div>
+      <div class="gallery-item" data-idx="2"><img src="../Ala3/Cozy3.JPG" alt="Cozy Room" loading="lazy" /></div>
+      <div class="gallery-item" data-idx="3"><img src="../Ala3/Cozy4.JPG" alt="Cozy Room" loading="lazy" /></div>
+      <div class="gallery-item" data-idx="4"><img src="../Ala3/Cozy5.JPG" alt="Cozy Room" loading="lazy" /></div>
+      <div class="gallery-item" data-idx="5"><img src="../Ala3/Cozy8.JPG" alt="Cozy Room" loading="lazy" /></div>
+      <div class="gallery-item" data-idx="6"><img src="../Ala3/Cozy9.JPG" alt="Cozy Room" loading="lazy" /></div>
+      <div class="gallery-item" data-idx="7"><img src="../Ala3/Cozy11.JPG" alt="Cozy Room" loading="lazy" /></div>
+      <div class="gallery-item" data-idx="8"><img src="../Ala3/Cozy12.JPG" alt="Cozy Room" loading="lazy" /></div>
+      <div class="gallery-item" data-idx="9"><img src="../Ala3/Ngủ.JPG" alt="Góc ngủ" loading="lazy" /></div>
+      <div class="gallery-item" data-idx="10"><img src="../Ala3/Bếp.JPG" alt="Bếp mini" loading="lazy" /></div>
+      <div class="gallery-item" data-idx="11"><img src="../Ala3/Ban Công 1.JPG" alt="Ban công 1" loading="lazy" /></div>
+      <div class="gallery-item" data-idx="12"><img src="../Ala3/Ban Công 2.JPG" alt="Ban công 2" loading="lazy" /></div>
+      <div class="gallery-item" data-idx="13"><img src="../Ala3/Máy Chiếu.JPG" alt="Máy chiếu" loading="lazy" /></div>
+      <div class="gallery-item" data-idx="14"><img src="../Ala3/Nhà Vệ Sinh.JPG" alt="Nhà vệ sinh" loading="lazy" /></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="amenities">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="label">Tiện nghi</span>
+      <div class="divider"></div>
+      <h2 class="section-title">Đầy đủ tiện nghi cho chuyến nghỉ hoàn hảo</h2>
+    </div>
+    <div class="amenities-grid">
+      <div class="amenity-card reveal d1"><span class="amenity-icon">🎬</span><span class="amenity-name">Máy chiếu độ nét cao</span></div>
+      <div class="amenity-card reveal d2"><span class="amenity-icon">🏡</span><span class="amenity-name">2 Ban công riêng</span></div>
+      <div class="amenity-card reveal d3"><span class="amenity-icon">🍳</span><span class="amenity-name">Bếp mini đầy đủ</span></div>
+      <div class="amenity-card reveal d4"><span class="amenity-icon">🛏️</span><span class="amenity-name">Giường ngủ êm ái</span></div>
+      <div class="amenity-card reveal d1"><span class="amenity-icon">🚿</span><span class="amenity-name">Nhà vệ sinh riêng</span></div>
+      <div class="amenity-card reveal d2"><span class="amenity-icon">❄️</span><span class="amenity-name">Điều hòa nhiệt độ</span></div>
+      <div class="amenity-card reveal d3"><span class="amenity-icon">📶</span><span class="amenity-name">WiFi tốc độ cao</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="label">Bảng giá</span>
+      <div class="divider"></div>
+      <h2 class="section-title">Giá thuê Cozy Room</h2>
+      <p class="section-sub">Giá đã bao gồm tất cả tiện nghi — không phụ thu ẩn.</p>
+    </div>
+    <div class="pricing-wrap reveal d1">
+      <div style="overflow-x:auto; border-radius:8px; border:1px solid var(--border);">
+        <table class="price-table">
+          <thead><tr><th>Loại</th><th>Thời gian</th><th>Giá</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:600;">Ngày đêm</td><td style="color:var(--muted);">14:00 → 12:00 hôm sau</td><td><span class="price-val">780.000đ</span></td></tr>
+            <tr><td style="font-weight:600;">Đêm</td><td style="color:var(--muted);">21:00 → 12:00 hôm sau</td><td><span class="price-val">670.000đ</span></td></tr>
+            <tr><td style="font-weight:600;">Combo 3 giờ</td><td style="color:var(--muted);">13:00 → 19:00</td><td><span class="price-val">400.000đ</span></td></tr>
+            <tr><td style="color:var(--muted);">Giờ tiếp theo</td><td style="color:var(--muted);">+1 giờ bổ sung</td><td style="font-weight:600; color:var(--muted); text-align:right;">75.000đ / giờ</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="price-note">⚠️ Tối đa 3 khách/phòng &nbsp;·&nbsp; Từ khách thứ 3: phụ thu <strong>100.000đ/khách</strong></div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-band">
+  <div class="container">
+    <h2>Sẵn sàng đặt phòng?</h2>
+    <p>Nhắn tin để kiểm tra phòng trống và nhận hướng dẫn đặt phòng ngay.</p>
+    <div class="cta-band-btns">
+      <a href="https://zalo.me/0911297249" target="_blank" class="btn btn-green" style="padding:14px 36px; font-size:1rem;">💬 Nhắn Zalo — 0911 297 249</a>
+      <a href="https://www.facebook.com/profile.php?id=61564387397128" target="_blank" class="btn btn-ghost" style="padding:14px 28px;">Facebook Messenger</a>
+    </div>
+  </div>
+</div>
+
+<section class="alt" id="other-rooms">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="label">Khám phá thêm</span>
+      <div class="divider"></div>
+      <h2 class="section-title">Các phòng khác tại ÀlaHome</h2>
+    </div>
+    <div class="other-rooms reveal d1">
+      <a href="vintage.html" class="other-room-card">
+        <div class="other-room-img"><img src="../Ala1/Vin1.JPG" alt="Vintage Room" loading="lazy" /></div>
+        <div class="other-room-info"><div class="other-room-name">Vintage Room</div><div class="other-room-price">Từ 400.000đ · Máy chiếu · Board Game · Ban công</div></div>
+      </a>
+      <a href="minimalist.html" class="other-room-card">
+        <div class="other-room-img"><img src="../Ala2/Minimalist1.JPG" alt="Minimalist Room" loading="lazy" /></div>
+        <div class="other-room-info"><div class="other-room-name">Minimalist Room</div><div class="other-room-price">Từ 400.000đ · Máy chiếu · Ban công · Bếp</div></div>
+      </a>
+      <a href="tiny-1.html" class="other-room-card">
+        <div class="other-room-img"><img src="../Ala4/IMG_6239.JPG" alt="Tiny Room" loading="lazy" /></div>
+        <div class="other-room-info"><div class="other-room-name">Tiny Room</div><div class="other-room-price">Từ 350.000đ · Gọn gàng · Đầy đủ tiện nghi</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-main">
+      <div>
+        <div class="footer-brand-name">ÀlaHome</div><div class="footer-brand-sub">Good space, good service</div>
+        <p class="footer-desc">Homestay tại TP. Hồ Chí Minh — không gian ấm cúng, tiện nghi đầy đủ, check-in tự động 24/7.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Các phòng</div>
+        <ul class="footer-links">
+          <li><a href="vintage.html">Vintage Room</a></li><li><a href="minimalist.html">Minimalist Room</a></li>
+          <li><a href="cozy.html">Cozy Room</a></li><li><a href="tiny-1.html">Tiny Room 1</a></li><li><a href="tiny-2.html">Tiny Room 2</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Liên hệ</div>
+        <ul class="footer-links">
+          <li><a href="tel:0911297249">0911 297 249</a></li><li><a href="mailto:alahome.saigon@gmail.com">alahome.saigon@gmail.com</a></li>
+          <li><a href="https://www.facebook.com/profile.php?id=61564387397128" target="_blank">Facebook</a></li>
+          <li><a href="https://www.instagram.com/alahome.saigon/" target="_blank">Instagram</a></li>
+          <li><a href="https://zalo.me/0911297249" target="_blank">Zalo</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 ÀlaHome. All rights reserved.</span><span>370 Điện Biên Phủ, Phường Vườn Lài, TP.HCM</span></div>
+  </div>
+</footer>
+
+<div class="sticky-cta">
+  <a href="https://zalo.me/0911297249" target="_blank" class="btn btn-green" style="width:100%;justify-content:center;font-size:0.9375rem;padding:13px;">💬 Đặt phòng qua Zalo — 0911 297 249</a>
+</div>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Xem ảnh">
+  <button class="lightbox-close" id="lbClose" aria-label="Đóng">✕</button>
+  <button class="lightbox-nav lightbox-prev" id="lbPrev" aria-label="Ảnh trước">‹</button>
+  <div class="lightbox-inner"><img class="lightbox-img" id="lbImg" src="" alt="" /></div>
+  <button class="lightbox-nav lightbox-next" id="lbNext" aria-label="Ảnh sau">›</button>
+  <div class="lightbox-counter" id="lbCounter"></div>
+</div>
+
+<script>
+  window.addEventListener('load', () => document.getElementById('heroBg').classList.add('loaded'));
+  const drawer = document.getElementById('drawer'), drawerOverlay = document.getElementById('drawerOverlay'), hamburger = document.getElementById('hamburger'), drawerClose = document.getElementById('drawerClose');
+  function openDrawer() { drawer.classList.add('open'); drawerOverlay.classList.add('open'); document.body.style.overflow = 'hidden'; hamburger.setAttribute('aria-expanded','true'); }
+  function closeDrawer() { drawer.classList.remove('open'); drawerOverlay.classList.remove('open'); document.body.style.overflow = ''; hamburger.setAttribute('aria-expanded','false'); }
+  hamburger.addEventListener('click', openDrawer); drawerClose.addEventListener('click', closeDrawer); drawerOverlay.addEventListener('click', closeDrawer);
+  document.querySelectorAll('.drawer-link').forEach(a => a.addEventListener('click', closeDrawer));
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); } }); }, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
+  revealEls.forEach(el => observer.observe(el));
+  setTimeout(() => { revealEls.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('in'); }); }, 60);
+  document.querySelectorAll('.btn, .gallery-item, .amenity-card, .other-room-card').forEach(el => {
+    el.addEventListener('pointerdown', () => { el.style.transition = 'transform 0.1s, opacity 0.1s'; el.style.transform = 'scale(0.97)'; el.style.opacity = '0.9'; });
+    const reset = () => { el.style.transform = ''; el.style.opacity = ''; setTimeout(() => { el.style.transition = ''; }, 150); };
+    el.addEventListener('pointerup', reset); el.addEventListener('pointerleave', reset); el.addEventListener('pointercancel', reset);
+  });
+  const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+  const images = galleryItems.map(el => ({ src: el.querySelector('img').src, alt: el.querySelector('img').alt }));
+  const lightbox = document.getElementById('lightbox'), lbImg = document.getElementById('lbImg'), lbCounter = document.getElementById('lbCounter');
+  let currentIdx = 0;
+  function openLightbox(idx) { currentIdx = idx; updateLightbox(); lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeLightbox() { lightbox.classList.remove('open'); document.body.style.overflow = ''; }
+  function updateLightbox() { const img = images[currentIdx]; lbImg.style.opacity = '0'; lbImg.style.transition = 'opacity 0.15s'; setTimeout(() => { lbImg.src = img.src; lbImg.alt = img.alt; lbImg.style.opacity = '1'; }, 80); lbCounter.textContent = (currentIdx + 1) + ' / ' + images.length; }
+  function prevImage() { currentIdx = (currentIdx - 1 + images.length) % images.length; updateLightbox(); }
+  function nextImage() { currentIdx = (currentIdx + 1) % images.length; updateLightbox(); }
+  galleryItems.forEach((el, idx) => el.addEventListener('click', () => openLightbox(idx)));
+  document.getElementById('lbClose').addEventListener('click', closeLightbox);
+  document.getElementById('lbPrev').addEventListener('click', prevImage);
+  document.getElementById('lbNext').addEventListener('click', nextImage);
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', e => { if (!lightbox.classList.contains('open')) return; if (e.key === 'Escape') closeLightbox(); if (e.key === 'ArrowLeft') prevImage(); if (e.key === 'ArrowRight') nextImage(); });
+  let touchStartX = 0;
+  lightbox.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  lightbox.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - touchStartX; if (Math.abs(dx) > 50) dx < 0 ? nextImage() : prevImage(); });
+</script>
+</body>
+</html>

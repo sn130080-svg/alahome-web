@@ -1,0 +1,1515 @@
+YPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Xác nhận đặt phòng — ÀlaHome</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { background: #F8F5F0; color: #1A1A1A; font-family: 'Inter', system-ui, sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    :root {
+      --green:       #4A6741;
+      --green-light: #6B8F5E;
+      --green-pale:  #EBF2E8;
+      --green-dark:  #2D3F28;
+      --accent:      #C4A882;
+      --bg:          #F8F5F0;
+      --white:       #FFFFFF;
+      --border:      #E2DDD7;
+      --text:        #1A1A1A;
+      --muted:       #6B6560;
+    }
+
+    h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; line-height: 1.2; }
+
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+    @media (min-width: 768px) { .container { padding: 0 48px; } }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 13px 28px; border-radius: 6px;
+      font-family: 'Inter', sans-serif; font-size: 0.9375rem; font-weight: 500;
+      cursor: pointer; border: 1.5px solid transparent;
+      transition: background 0.2s, color 0.2s, transform 0.12s;
+      -webkit-tap-highlight-color: transparent; outline: none; white-space: nowrap;
+    }
+    .btn:active { transform: scale(0.96); }
+    .btn-green  { background: var(--green); color: #fff; border-color: var(--green); }
+    .btn-green:hover  { background: var(--green-dark); }
+    .btn-outline { background: transparent; color: var(--green); border-color: var(--green); }
+    .btn-outline:hover { background: var(--green); color: #fff; }
+    .btn-full { width: 100%; justify-content: center; padding: 15px; font-size: 1rem; }
+
+    /* ── Navbar ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      padding: 14px 0; box-shadow: 0 1px 0 var(--border);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .logo-name { font-family: 'Playfair Display', serif; font-size: 1.375rem; font-weight: 700; color: var(--green); }
+    .logo-sub  { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-top: 1px; display: block; }
+
+    /* ── Page layout ── */
+    .page-wrap { padding-top: 72px; padding-bottom: 60px; min-height: 100vh; }
+
+    /* ── Progress Steps ── */
+    .progress-bar {
+      background: var(--white); border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+    }
+    .steps-row {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0; max-width: 560px; margin: 0 auto;
+    }
+    .step-item {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 6px; flex: 1;
+    }
+    .step-circle {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.875rem; font-weight: 700;
+      border: 2px solid var(--border);
+      background: #fff; color: var(--muted);
+      transition: all 0.3s;
+    }
+    .step-item.active   .step-circle { background: var(--green); border-color: var(--green); color: #fff; }
+    .step-item.done     .step-circle { background: var(--green-pale); border-color: var(--green); color: var(--green); }
+    .step-label {
+      font-size: 0.75rem; font-weight: 500; color: var(--muted);
+      text-align: center; white-space: nowrap;
+    }
+    .step-item.active .step-label { color: var(--green); font-weight: 600; }
+    .step-connector {
+      flex: 1; height: 2px; background: var(--border); margin: 0 6px;
+      margin-bottom: 22px; transition: background 0.3s;
+    }
+    .step-connector.done { background: var(--green); }
+
+    /* ── Main layout ── */
+    .booking-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 28px;
+      align-items: start;
+      margin-top: 32px;
+    }
+    @media (max-width: 900px) {
+      .booking-layout { grid-template-columns: 1fr; }
+      .booking-sidebar { order: -1; }
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px;
+    }
+    .card-title {
+      font-family: 'Playfair Display', serif; font-size: 1.25rem;
+      margin-bottom: 20px; padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Booking Summary Sidebar ── */
+    .summary-img {
+      width: 100%; aspect-ratio: 16/9; object-fit: cover;
+      border-radius: 8px; margin-bottom: 16px;
+    }
+    .summary-room { font-size: 1.125rem; font-weight: 700; margin-bottom: 12px; }
+    .summary-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 0; font-size: 0.875rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .summary-row:last-of-type { border-bottom: none; }
+    .summary-lbl { color: var(--muted); }
+    .summary-val { font-weight: 500; text-align: right; }
+    .summary-total {
+      background: var(--green-pale); border-radius: 8px;
+      padding: 14px 16px; margin-top: 16px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .summary-total-lbl { font-size: 0.9375rem; font-weight: 600; }
+    .summary-total-val { font-size: 1.25rem; font-weight: 700; color: var(--green); }
+
+    /* ── Step 1: Form ── */
+    .form-group { margin-bottom: 18px; }
+    .form-label {
+      display: block; font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 6px;
+    }
+    .form-label .required { color: #e53e3e; }
+    .form-control {
+      width: 100%; padding: 12px 14px;
+      border: 1.5px solid var(--border); border-radius: 8px;
+      font-family: 'Inter', sans-serif; font-size: 1rem;
+      color: var(--text); background: #fff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+    }
+    .form-control:focus {
+      outline: none; border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(74,103,65,0.12);
+    }
+    .form-control::placeholder { color: #b8b0a8; }
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 500px) { .form-row-2 { grid-template-columns: 1fr; } }
+
+    /* File upload */
+    .upload-area {
+      border: 2px dashed var(--border); border-radius: 10px;
+      padding: 28px 20px; text-align: center; cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative; background: var(--bg);
+    }
+    .upload-area:hover { border-color: var(--green); background: var(--green-pale); }
+    .upload-area.has-file { border-color: var(--green); background: var(--green-pale); }
+    .upload-area input[type="file"] {
+      position: absolute; inset: 0; opacity: 0;
+      cursor: pointer; width: 100%; height: 100%;
+    }
+    .upload-icon { font-size: 2rem; margin-bottom: 8px; }
+    .upload-text { font-size: 0.9375rem; font-weight: 500; color: var(--muted); }
+    .upload-sub  { font-size: 0.8125rem; color: var(--muted); margin-top: 4px; }
+    .upload-preview {
+      display: none; margin-top: 12px;
+      border-radius: 8px; overflow: hidden;
+      max-height: 200px;
+    }
+    .upload-preview img { width: 100%; object-fit: cover; max-height: 200px; }
+    .upload-preview.show { display: block; }
+    .upload-preview-name {
+      display: none; margin-top: 8px;
+      font-size: 0.875rem; color: var(--green); font-weight: 500;
+    }
+    .upload-preview-name.show { display: block; }
+
+    /* ── Step 2: Payment ── */
+    .payment-card {
+      background: linear-gradient(135deg, #1a3a2a 0%, #2d5c3a 100%);
+      border-radius: 12px; padding: 24px;
+      color: #fff; margin-bottom: 20px;
+    }
+    .payment-bank { font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 4px; }
+    .payment-bank-name { font-size: 1.375rem; font-weight: 700; margin-bottom: 16px; }
+    .payment-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .payment-row-lbl { font-size: 0.8125rem; color: rgba(255,255,255,0.65); }
+    .payment-row-val { font-size: 1rem; font-weight: 600; }
+    .payment-row-val.big { font-size: 1.375rem; color: #7dff9e; }
+    .copy-btn {
+      background: rgba(255,255,255,0.15); border: none; border-radius: 4px;
+      padding: 4px 10px; color: #fff; font-size: 0.75rem; cursor: pointer;
+      transition: background 0.15s; font-family: 'Inter', sans-serif;
+      margin-left: 8px; vertical-align: middle;
+    }
+    .copy-btn:hover { background: rgba(255,255,255,0.25); }
+
+    .qr-section {
+      display: flex; flex-direction: column; align-items: center;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px;
+      margin-bottom: 20px;
+    }
+    .qr-title { font-size: 0.875rem; font-weight: 600; color: var(--muted); margin-bottom: 16px; text-align: center; }
+    .qr-img {
+      width: 220px; height: 220px; border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    .qr-note {
+      font-size: 0.8125rem; color: var(--muted); margin-top: 12px;
+      text-align: center; line-height: 1.6;
+    }
+
+    .transfer-ref {
+      background: #fffbf0; border: 1px solid #f0d080;
+      border-radius: 8px; padding: 14px 16px; margin-bottom: 20px;
+    }
+    .transfer-ref-lbl { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #856404; margin-bottom: 4px; }
+    .transfer-ref-val { font-size: 1.0625rem; font-weight: 700; color: #533f03; letter-spacing: 0.05em; }
+
+    .confirm-check {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 16px; background: var(--green-pale); border-radius: 8px;
+      margin-bottom: 20px; cursor: pointer;
+    }
+    .confirm-check input[type="checkbox"] {
+      width: 20px; height: 20px; margin-top: 1px;
+      accent-color: var(--green); cursor: pointer; flex-shrink: 0;
+    }
+    .confirm-check-label { font-size: 0.9375rem; color: var(--text); line-height: 1.5; }
+
+    /* ── Step 3: Success ── */
+    .success-wrap {
+      text-align: center; padding: 48px 24px;
+    }
+    .success-icon {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: var(--green-pale); border: 3px solid var(--green);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.25rem; margin: 0 auto 24px;
+      animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @keyframes popIn {
+      from { transform: scale(0.5); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+    .success-title {
+      font-size: 1.75rem; margin-bottom: 12px;
+    }
+    .success-booking-id {
+      display: inline-block;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 6px; padding: 8px 20px;
+      font-size: 1rem; font-weight: 700; color: var(--green);
+      letter-spacing: 0.08em; margin-bottom: 24px;
+    }
+    .success-message {
+      font-size: 1.0625rem; color: var(--muted); line-height: 1.8;
+      max-width: 560px; margin: 0 auto 28px;
+    }
+    .success-timeline {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px 24px;
+      text-align: left; max-width: 480px; margin: 0 auto 28px;
+    }
+    .timeline-item {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 10px 0;
+    }
+    .timeline-item + .timeline-item { border-top: 1px solid var(--border); }
+    .timeline-dot {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--green-pale); border: 2px solid var(--green);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.875rem; flex-shrink: 0; margin-top: 1px;
+    }
+    .timeline-text { font-size: 0.9375rem; }
+    .timeline-text strong { font-weight: 600; color: var(--text); display: block; margin-bottom: 2px; }
+    .timeline-text span { color: var(--muted); font-size: 0.875rem; }
+    .success-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    /* ── Nav buttons ── */
+    .step-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 24px; gap: 12px;
+    }
+    .step-nav .btn { min-width: 140px; }
+
+    /* ── Info box ── */
+    .info-box {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 14px 16px; margin-bottom: 18px;
+      font-size: 0.875rem; color: var(--muted); line-height: 1.65;
+    }
+    .info-box strong { color: var(--text); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+<!-- ── Navbar ── -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="index.html">
+      <span class="logo-name">ÀlaHome</span>
+      <span class="logo-sub">Good space, good service</span>
+    </a>
+    <a href="index.html#contact" style="font-size:.875rem;color:var(--muted);font-weight:500;">Liên hệ hỗ trợ</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- ── Progress Bar ── -->
+  <div class="progress-bar">
+    <div class="steps-row" id="stepsRow">
+      <div class="step-item active" id="step1Indicator">
+        <div class="step-circle">1</div>
+        <div class="step-label">Thông tin</div>
+      </div>
+      <div class="step-connector" id="conn1"></div>
+      <div class="step-item" id="step2Indicator">
+        <div class="step-circle">2</div>
+        <div class="step-label">Thanh toán</div>
+      </div>
+      <div class="step-connector" id="conn2"></div>
+      <div class="step-item" id="step3Indicator">
+        <div class="step-circle">3</div>
+        <div class="step-label">Xác nhận</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="booking-layout">
+
+      <!-- ── Main content (steps) ── -->
+      <div>
+
+        <!-- ════ STEP 1: Guest info ════ -->
+        <div id="step1Content">
+          <div class="card">
+            <h2 class="card-title">Thông tin khách hàng</h2>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label class="form-label" for="guestName">Họ và tên <span class="required">*</span></label>
+                <input type="text" class="form-control" id="guestName" placeholder="Nguyễn Văn A" autocomplete="name" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="guestPhone">Số điện thoại <span class="required">*</span></label>
+                <input type="tel" class="form-control" id="guestPhone" placeholder="0912 345 678" autocomplete="tel" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="guestEmail">Email <span class="required">*</span></label>
+              <input type="email" class="form-control" id="guestEmail" placeholder="email@example.com" autocomplete="email" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="guestNote">Ghi chú</label>
+              <textarea class="form-control" id="guestNote" rows="3" placeholder="Yêu cầu đặc biệt, thời gian dự kiến đến, v.v." style="resize:vertical;"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Ảnh CCCD / Hộ chiếu <span class="required">*</span></label>
+              <div class="info-box">
+                📋 Theo quy định, quý khách cần cung cấp ảnh CCCD/Hộ chiếu khi đặt phòng. Thông tin chỉ dùng để xác thực danh tính, được bảo mật hoàn toàn.
+              </div>
+              <div class="upload-area" id="uploadArea">
+                <input type="file" id="cccdFile" accept="image/*,.pdf" />
+                <div id="uploadDefault">
+                  <div class="upload-icon">📷</div>
+                  <div class="upload-text">Nhấn để chọn ảnh CCCD/Hộ chiếu</div>
+                  <div class="upload-sub">JPG, PNG, PDF · Tối đa 10MB</div>
+                </div>
+                <div class="upload-preview" id="uploadPreview">
+                  <img id="previewImg" src="" alt="CCCD Preview" />
+                </div>
+                <div class="upload-preview-name" id="previewName"></div>
+              </div>
+            </div>
+
+            <div class="step-nav">
+              <a href="dat-phong.html" class="btn btn-outline">← Quay lại</a>
+              <button class="btn btn-green" id="toStep2Btn" style="min-width:160px;">
+                Tiếp theo — Thanh toán →
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ════ STEP 2: Payment ════ -->
+        <div id="step2Content" style="display:none;">
+          <div class="card">
+            <h2 class="card-title">Thông tin thanh toán</h2>
+
+            <!-- Bank card -->
+            <div class="payment-card">
+              <div class="payment-bank">Ngân hàng</div>
+              <div class="payment-bank-name">TPBank</div>
+              <div class="payment-row">
+                <span class="payment-row-lbl">Số tài khoản</span>
+                <span class="payment-row-val">
+                  1110 1811 203
+                  <button class="copy-btn" onclick="copyText('1110 1811 203', this)">Sao chép</button>
+                </span>
+              </div>
+              <div class="payment-row">
+                <span class="payment-row-lbl">Chủ tài khoản</span>
+                <span class="payment-row-val">HKD ALA HOMESTAY</span>
+              </div>
+              <div class="payment-row" style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.15);">
+                <span class="payment-row-lbl">Số tiền cần chuyển</span>
+                <span class="payment-row-val big" id="payAmount">--</span>
+              </div>
+            </div>
+
+            <!-- Transfer reference -->
+            <div class="transfer-ref">
+              <div class="transfer-ref-lbl">⚠️ Nội dung chuyển khoản (bắt buộc)</div>
+              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px;">
+                <span class="transfer-ref-val" id="transferRef">ALAHOME xxxxxx</span>
+                <button class="btn btn-outline" style="padding:6px 14px;font-size:0.8125rem;" onclick="copyRef()">Sao chép</button>
+              </div>
+              <div style="font-size:0.8125rem;color:#856404;margin-top:6px;">Vui lòng nhập đúng nội dung để home xác nhận thanh toán tự động.</div>
+            </div>
+
+            <!-- QR Code -->
+            <div class="qr-section">
+              <div class="qr-title">Quét mã QR để thanh toán nhanh</div>
+              <img class="qr-img" id="qrImg" src="" alt="QR Code thanh toán" />
+              <div class="qr-note">Mở app ngân hàng → Quét mã → Số tiền & nội dung đã được điền sẵn</div>
+            </div>
+
+            <!-- Confirmation checkbox -->
+            <label class="confirm-check">
+              <input type="checkbox" id="confirmedPayment" />
+              <span class="confirm-check-label">Tôi xác nhận đã chuyển khoản đúng số tiền và nội dung theo thông tin trên.</span>
+            </label>
+
+            <div class="step-nav">
+              <button class="btn btn-outline" id="backToStep1Btn">← Quay lại</button>
+              <button class="btn btn-green" id="toStep3Btn" style="min-width:160px;">
+                Xác nhận đặt phòng ✓
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ════ STEP 3: Success ════ -->
+        <div id="step3Content" style="display:none;">
+          <div class="card">
+            <div class="success-wrap">
+              <div class="success-icon">✓</div>
+              <h2 class="success-title">Đặt phòng thành công!</h2>
+              <div class="success-booking-id" id="successBookingId">ALA-XXXXXX</div>
+
+              <p class="success-message">
+                Cảm ơn bạn đã tin tưởng lựa chọn ÀlaHome! Chúng tôi đã ghi nhận yêu cầu đặt phòng của bạn. Ngay sau khi xác minh thanh toán, ÀlaHome sẽ gửi email xác nhận kèm toàn bộ hướng dẫn check-in đến địa chỉ email của bạn <strong>trong vòng 30 phút</strong>.
+              </p>
+
+              <div class="success-timeline">
+                <div class="timeline-item">
+                  <div class="timeline-dot">1</div>
+                  <div class="timeline-text">
+                    <strong>Xác minh thanh toán</strong>
+                    <span>ÀlaHome kiểm tra khoản chuyển khoản trong vòng 30 phút</span>
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot">2</div>
+                  <div class="timeline-text">
+                    <strong>Email xác nhận</strong>
+                    <span>Bạn nhận email với mã booking và hướng dẫn chi tiết</span>
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot">3</div>
+                  <div class="timeline-text">
+                    <strong>Check-in tự động 24/7</strong>
+                    <span>Đến giờ nhận phòng, làm theo hướng dẫn trong email là xong!</span>
+                  </div>
+                </div>
+              </div>
+
+              <p style="font-size:0.875rem;color:var(--muted);margin-bottom:20px;">
+                Có thắc mắc? Liên hệ ngay qua Zalo <strong>0911 297 249</strong> để được hỗ trợ.
+              </p>
+
+              <div class="success-actions">
+                <a href="https://zalo.me/0911297249" target="_blank" class="btn btn-outline">
+                  Liên hệ Zalo
+                </a>
+                <a href="index.html" class="btn btn-green">
+                  Về trang chủ
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── Booking Summary Sidebar ── -->
+      <div class="booking-sidebar">
+        <div class="card" style="position:sticky;top:88px;">
+          <h3 class="card-title" style="font-size:1rem;margin-bottom:16px;padding-bottom:14px;">Thông tin đặt phòng</h3>
+          <img class="summary-img" id="summaryImg" src="" alt="Phòng" />
+          <div class="summary-room" id="summaryRoomName">--</div>
+
+          <div class="summary-row">
+            <span class="summary-lbl">Nhận phòng</span>
+            <span class="summary-val" id="summaryCin">--</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-lbl">Trả phòng</span>
+            <span class="summary-val" id="summaryCout">--</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-lbl">Số khách</span>
+            <span class="summary-val" id="summaryGuests">--</span>
+          </div>
+
+          <div class="summary-total">
+            <span class="summary-total-lbl">Tổng thanh toán</span>
+            <span class="summary-total-val" id="summaryTotal">--</span>
+          </div>
+
+          <div style="margin-top:14px;font-size:0.8125rem;color:var(--muted);line-height:1.7;">
+            <strong style="color:var(--text);">Chính sách hủy:</strong><br/>
+            Hủy trước 7 ngày → hoàn 100% · Hủy 4–6 ngày → hoàn 50% · Dưới 4 ngày → không hoàn
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+// ──────────────────────────────────────────
+// CONFIG
+// ──────────────────────────────────────────
+const APPS_SCRIPT_URL = 'PASTE_YOUR_APPS_SCRIPT_URL_HERE';
+
+const ROOM_IMAGES = {
+  'vintage':    'Ala1/Ngủ.JPG',
+  'minimalist': 'Ala2/Minimalist1.JPG',
+  'cozy':       'Ala3/Cozy1.JPG',
+  'tiny-1':     'Ala4/IMG_6239.JPG',
+  'tiny-2':     'Ala5/IMG_9733.JPG',
+};
+
+// ──────────────────────────────────────────
+// PARSE PARAMS
+// ──────────────────────────────────────────
+const p       = new URLSearchParams(location.search);
+const roomId  = p.get('room')     || 'vintage';
+const roomName= p.get('roomName') || 'Phòng';
+const cin     = p.get('cin')      || '';
+const cout    = p.get('cout')     || '';
+const cint    = p.get('cint')     || '';
+const coutt   = p.get('coutt')    || '';
+const adults  = parseInt(p.get('adults'))  || 2;
+const babies  = parseInt(p.get('babies'))  || 0;
+const total   = parseInt(p.get('total'))   || 0;
+
+const bookingId = 'ALA-' + Date.now().toString(36).toUpperCase().slice(-6);
+
+function fmtDate(d) {
+  if (!d) return '--';
+  const [y, m, day] = d.split('-');
+  const mths = ['Th.1','Th.2','Th.3','Th.4','Th.5','Th.6','Th.7','Th.8','Th.9','Th.10','Th.11','Th.12'];
+  return `${parseInt(day)} ${mths[parseInt(m)-1]}, ${y}`;
+}
+
+function fmtPrice(n) {
+  return n.toLocaleString('vi-VN') + 'đ';
+}
+
+// ──────────────────────────────────────────
+// POPULATE SIDEBAR
+// ──────────────────────────────────────────
+document.getElementById('summaryImg').src         = ROOM_IMAGES[roomId] || '';
+document.getElementById('summaryRoomName').textContent = roomName;
+document.getElementById('summaryCin').textContent  = `${fmtDate(cin)} — ${cint}`;
+document.getElementById('summaryCout').textContent = `${fmtDate(cout)} — ${coutt}`;
+document.getElementById('summaryGuests').textContent = adults + ' người lớn' + (babies > 0 ? `, ${babies} em bé` : '');
+document.getElementById('summaryTotal').textContent = total ? fmtPrice(total) : '--';
+
+// ──────────────────────────────────────────
+// STEP MANAGEMENT
+// ──────────────────────────────────────────
+let currentStep = 1;
+
+function goToStep(n) {
+  [1,2,3].forEach(i => {
+    document.getElementById(`step${i}Content`).style.display = i === n ? 'block' : 'none';
+    const ind = document.getElementById(`step${i}Indicator`);
+    ind.classList.remove('active','done');
+    if (i === n) ind.classList.add('active');
+    if (i < n)  ind.classList.add('done');
+    if (i < 3) {
+      const conn = document.getElementById(`conn${i}`);
+      conn.classList.toggle('done', i < n);
+    }
+  });
+  currentStep = n;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ──────────────────────────────────────────
+// STEP 1 → STEP 2
+// ──────────────────────────────────────────
+document.getElementById('toStep2Btn').addEventListener('click', () => {
+  const name  = document.getElementById('guestName').value.trim();
+  const phone = document.getElementById('guestPhone').value.trim();
+  const email = document.getElementById('guestEmail').value.trim();
+  const file  = document.getElementById('cccdFile').files[0];
+
+  if (!name)  { alert('Vui lòng nhập họ và tên.'); document.getElementById('guestName').focus(); return; }
+  if (!phone) { alert('Vui lòng nhập số điện thoại.'); document.getElementById('guestPhone').focus(); return; }
+  if (!email || !email.includes('@')) { alert('Vui lòng nhập email hợp lệ.'); document.getElementById('guestEmail').focus(); return; }
+  if (!file)  { alert('Vui lòng đính kèm ảnh CCCD/Hộ chiếu.'); return; }
+
+  // Fill payment step
+  document.getElementById('payAmount').textContent    = fmtPrice(total);
+  document.getElementById('transferRef').textContent  = `ALAHOME ${bookingId}`;
+  document.getElementById('successBookingId').textContent = bookingId;
+
+  // Build VietQR URL (auto-fills amount + ref in QR)
+  const qrUrl = `https://img.vietqr.io/image/TPB-11101811203-compact2.png?amount=${total}&addInfo=ALAHOME%20${bookingId}&accountName=HKD%20ALA%20HOMESTAY`;
+  document.getElementById('qrImg').src = qrUrl;
+
+  goToStep(2);
+});
+
+// ──────────────────────────────────────────
+// STEP 2 → STEP 3
+// ──────────────────────────────────────────
+document.getElementById('backToStep1Btn').addEventListener('click', () => goToStep(1));
+
+document.getElementById('toStep3Btn').addEventListener('click', async () => {
+  if (!document.getElementById('confirmedPayment').checked) {
+    alert('Vui lòng xác nhận đã chuyển khoản trước khi tiếp tục.');
+    return;
+  }
+
+  const btn = document.getElementById('toStep3Btn');
+  btn.disabled = true;
+  btn.textContent = 'Đang xử lý…';
+
+  // Call Apps Script to save booking (if configured)
+  if (APPS_SCRIPT_URL && APPS_SCRIPT_URL !== 'PASTE_YOUR_APPS_SCRIPT_URL_HERE') {
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({
+          action: 'book',
+          roomId, cin, cout, cint, coutt, adults, babies,
+          totalPrice: total,
+          guestName:  document.getElementById('guestName').value.trim(),
+          guestPhone: document.getElementById('guestPhone').value.trim(),
+          guestEmail: document.getElementById('guestEmail').value.trim(),
+          bookingId,
+        }),
+      });
+    } catch (err) {
+      // Continue even if API fails — admin can reconcile from sheet later
+    }
+  }
+
+  goToStep(3);
+});
+
+// ──────────────────────────────────────────
+// CCCD File upload preview
+// ──────────────────────────────────────────
+document.getElementById('cccdFile').addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const area    = document.getElementById('uploadArea');
+  const preview = document.getElementById('uploadPreview');
+  const pName   = document.getElementById('previewName');
+  const defDiv  = document.getElementById('uploadDefault');
+
+  area.classList.add('has-file');
+  pName.textContent = file.name;
+  pName.classList.add('show');
+
+  if (file.type.startsWith('image/')) {
+    const reader = new FileReader();
+    reader.onload = ev => {
+      document.getElementById('previewImg').src = ev.target.result;
+      preview.classList.add('show');
+      defDiv.style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  } else {
+    defDiv.innerHTML = `<div class="upload-icon">📄</div><div class="upload-text">Đã chọn file PDF</div>`;
+    defDiv.style.display = '';
+  }
+});
+
+// ──────────────────────────────────────────
+// COPY HELPERS
+// ──────────────────────────────────────────
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = 'Đã sao chép!';
+    setTimeout(() => { btn.textContent = orig; }, 1800);
+  });
+}
+
+function copyRef() {
+  const ref = document.getElementById('transferRef').textContent;
+  navigator.clipboard.writeText(ref).then(() => {
+    const btn = event.target;
+    const orig = btn.textContent;
+    btn.textContent = 'Đã sao chép!';
+    setTimeout(() => { btn.textContent = orig; }, 1800);
+  });
+}
+
+// ──────────────────────────────────────────
+// INIT
+// ──────────────────────────────────────────
+goToStep(1);
+
+// Update back link to return with params
+document.querySelector('#step1Content a[href="dat-phong.html"]').href =
+  'dat-phong.html?' + new URLSearchParams({ cin, cout, cint, coutt, adults, babies });
+</script>
+</body>
+</html><!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Xác nhận đặt phòng — ÀlaHome</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { background: #F8F5F0; color: #1A1A1A; font-family: 'Inter', system-ui, sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    :root {
+      --green:       #4A6741;
+      --green-light: #6B8F5E;
+      --green-pale:  #EBF2E8;
+      --green-dark:  #2D3F28;
+      --accent:      #C4A882;
+      --bg:          #F8F5F0;
+      --white:       #FFFFFF;
+      --border:      #E2DDD7;
+      --text:        #1A1A1A;
+      --muted:       #6B6560;
+    }
+
+    h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; line-height: 1.2; }
+
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+    @media (min-width: 768px) { .container { padding: 0 48px; } }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 13px 28px; border-radius: 6px;
+      font-family: 'Inter', sans-serif; font-size: 0.9375rem; font-weight: 500;
+      cursor: pointer; border: 1.5px solid transparent;
+      transition: background 0.2s, color 0.2s, transform 0.12s;
+      -webkit-tap-highlight-color: transparent; outline: none; white-space: nowrap;
+    }
+    .btn:active { transform: scale(0.96); }
+    .btn-green  { background: var(--green); color: #fff; border-color: var(--green); }
+    .btn-green:hover  { background: var(--green-dark); }
+    .btn-outline { background: transparent; color: var(--green); border-color: var(--green); }
+    .btn-outline:hover { background: var(--green); color: #fff; }
+    .btn-full { width: 100%; justify-content: center; padding: 15px; font-size: 1rem; }
+
+    /* ── Navbar ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      padding: 14px 0; box-shadow: 0 1px 0 var(--border);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .logo-name { font-family: 'Playfair Display', serif; font-size: 1.375rem; font-weight: 700; color: var(--green); }
+    .logo-sub  { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-top: 1px; display: block; }
+
+    /* ── Page layout ── */
+    .page-wrap { padding-top: 72px; padding-bottom: 60px; min-height: 100vh; }
+
+    /* ── Progress Steps ── */
+    .progress-bar {
+      background: var(--white); border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+    }
+    .steps-row {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0; max-width: 560px; margin: 0 auto;
+    }
+    .step-item {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 6px; flex: 1;
+    }
+    .step-circle {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.875rem; font-weight: 700;
+      border: 2px solid var(--border);
+      background: #fff; color: var(--muted);
+      transition: all 0.3s;
+    }
+    .step-item.active   .step-circle { background: var(--green); border-color: var(--green); color: #fff; }
+    .step-item.done     .step-circle { background: var(--green-pale); border-color: var(--green); color: var(--green); }
+    .step-label {
+      font-size: 0.75rem; font-weight: 500; color: var(--muted);
+      text-align: center; white-space: nowrap;
+    }
+    .step-item.active .step-label { color: var(--green); font-weight: 600; }
+    .step-connector {
+      flex: 1; height: 2px; background: var(--border); margin: 0 6px;
+      margin-bottom: 22px; transition: background 0.3s;
+    }
+    .step-connector.done { background: var(--green); }
+
+    /* ── Main layout ── */
+    .booking-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 28px;
+      align-items: start;
+      margin-top: 32px;
+    }
+    @media (max-width: 900px) {
+      .booking-layout { grid-template-columns: 1fr; }
+      .booking-sidebar { order: -1; }
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px;
+    }
+    .card-title {
+      font-family: 'Playfair Display', serif; font-size: 1.25rem;
+      margin-bottom: 20px; padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Booking Summary Sidebar ── */
+    .summary-img {
+      width: 100%; aspect-ratio: 16/9; object-fit: cover;
+      border-radius: 8px; margin-bottom: 16px;
+    }
+    .summary-room { font-size: 1.125rem; font-weight: 700; margin-bottom: 12px; }
+    .summary-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 0; font-size: 0.875rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .summary-row:last-of-type { border-bottom: none; }
+    .summary-lbl { color: var(--muted); }
+    .summary-val { font-weight: 500; text-align: right; }
+    .summary-total {
+      background: var(--green-pale); border-radius: 8px;
+      padding: 14px 16px; margin-top: 16px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .summary-total-lbl { font-size: 0.9375rem; font-weight: 600; }
+    .summary-total-val { font-size: 1.25rem; font-weight: 700; color: var(--green); }
+
+    /* ── Step 1: Form ── */
+    .form-group { margin-bottom: 18px; }
+    .form-label {
+      display: block; font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 6px;
+    }
+    .form-label .required { color: #e53e3e; }
+    .form-control {
+      width: 100%; padding: 12px 14px;
+      border: 1.5px solid var(--border); border-radius: 8px;
+      font-family: 'Inter', sans-serif; font-size: 1rem;
+      color: var(--text); background: #fff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+    }
+    .form-control:focus {
+      outline: none; border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(74,103,65,0.12);
+    }
+    .form-control::placeholder { color: #b8b0a8; }
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 500px) { .form-row-2 { grid-template-columns: 1fr; } }
+
+    /* File upload */
+    .upload-area {
+      border: 2px dashed var(--border); border-radius: 10px;
+      padding: 28px 20px; text-align: center; cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative; background: var(--bg);
+    }
+    .upload-area:hover { border-color: var(--green); background: var(--green-pale); }
+    .upload-area.has-file { border-color: var(--green); background: var(--green-pale); }
+    .upload-area input[type="file"] {
+      position: absolute; inset: 0; opacity: 0;
+      cursor: pointer; width: 100%; height: 100%;
+    }
+    .upload-icon { font-size: 2rem; margin-bottom: 8px; }
+    .upload-text { font-size: 0.9375rem; font-weight: 500; color: var(--muted); }
+    .upload-sub  { font-size: 0.8125rem; color: var(--muted); margin-top: 4px; }
+    .upload-preview {
+      display: none; margin-top: 12px;
+      border-radius: 8px; overflow: hidden;
+      max-height: 200px;
+    }
+    .upload-preview img { width: 100%; object-fit: cover; max-height: 200px; }
+    .upload-preview.show { display: block; }
+    .upload-preview-name {
+      display: none; margin-top: 8px;
+      font-size: 0.875rem; color: var(--green); font-weight: 500;
+    }
+    .upload-preview-name.show { display: block; }
+
+    /* ── Step 2: Payment ── */
+    .payment-card {
+      background: linear-gradient(135deg, #1a3a2a 0%, #2d5c3a 100%);
+      border-radius: 12px; padding: 24px;
+      color: #fff; margin-bottom: 20px;
+    }
+    .payment-bank { font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 4px; }
+    .payment-bank-name { font-size: 1.375rem; font-weight: 700; margin-bottom: 16px; }
+    .payment-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .payment-row-lbl { font-size: 0.8125rem; color: rgba(255,255,255,0.65); }
+    .payment-row-val { font-size: 1rem; font-weight: 600; }
+    .payment-row-val.big { font-size: 1.375rem; color: #7dff9e; }
+    .copy-btn {
+      background: rgba(255,255,255,0.15); border: none; border-radius: 4px;
+      padding: 4px 10px; color: #fff; font-size: 0.75rem; cursor: pointer;
+      transition: background 0.15s; font-family: 'Inter', sans-serif;
+      margin-left: 8px; vertical-align: middle;
+    }
+    .copy-btn:hover { background: rgba(255,255,255,0.25); }
+
+    .qr-section {
+      display: flex; flex-direction: column; align-items: center;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px;
+      margin-bottom: 20px;
+    }
+    .qr-title { font-size: 0.875rem; font-weight: 600; color: var(--muted); margin-bottom: 16px; text-align: center; }
+    .qr-img {
+      width: 220px; height: 220px; border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    .qr-note {
+      font-size: 0.8125rem; color: var(--muted); margin-top: 12px;
+      text-align: center; line-height: 1.6;
+    }
+
+    .transfer-ref {
+      background: #fffbf0; border: 1px solid #f0d080;
+      border-radius: 8px; padding: 14px 16px; margin-bottom: 20px;
+    }
+    .transfer-ref-lbl { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #856404; margin-bottom: 4px; }
+    .transfer-ref-val { font-size: 1.0625rem; font-weight: 700; color: #533f03; letter-spacing: 0.05em; }
+
+    .confirm-check {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 16px; background: var(--green-pale); border-radius: 8px;
+      margin-bottom: 20px; cursor: pointer;
+    }
+    .confirm-check input[type="checkbox"] {
+      width: 20px; height: 20px; margin-top: 1px;
+      accent-color: var(--green); cursor: pointer; flex-shrink: 0;
+    }
+    .confirm-check-label { font-size: 0.9375rem; color: var(--text); line-height: 1.5; }
+
+    /* ── Step 3: Success ── */
+    .success-wrap {
+      text-align: center; padding: 48px 24px;
+    }
+    .success-icon {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: var(--green-pale); border: 3px solid var(--green);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.25rem; margin: 0 auto 24px;
+      animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @keyframes popIn {
+      from { transform: scale(0.5); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+    .success-title {
+      font-size: 1.75rem; margin-bottom: 12px;
+    }
+    .success-booking-id {
+      display: inline-block;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 6px; padding: 8px 20px;
+      font-size: 1rem; font-weight: 700; color: var(--green);
+      letter-spacing: 0.08em; margin-bottom: 24px;
+    }
+    .success-message {
+      font-size: 1.0625rem; color: var(--muted); line-height: 1.8;
+      max-width: 560px; margin: 0 auto 28px;
+    }
+    .success-timeline {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px 24px;
+      text-align: left; max-width: 480px; margin: 0 auto 28px;
+    }
+    .timeline-item {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 10px 0;
+    }
+    .timeline-item + .timeline-item { border-top: 1px solid var(--border); }
+    .timeline-dot {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--green-pale); border: 2px solid var(--green);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.875rem; flex-shrink: 0; margin-top: 1px;
+    }
+    .timeline-text { font-size: 0.9375rem; }
+    .timeline-text strong { font-weight: 600; color: var(--text); display: block; margin-bottom: 2px; }
+    .timeline-text span { color: var(--muted); font-size: 0.875rem; }
+    .success-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    /* ── Nav buttons ── */
+    .step-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 24px; gap: 12px;
+    }
+    .step-nav .btn { min-width: 140px; }
+
+    /* ── Info box ── */
+    .info-box {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 14px 16px; margin-bottom: 18px;
+      font-size: 0.875rem; color: var(--muted); line-height: 1.65;
+    }
+    .info-box strong { color: var(--text); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+<!-- ── Navbar ── -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="index.html">
+      <span class="logo-name">ÀlaHome</span>
+      <span class="logo-sub">Good space, good service</span>
+    </a>
+    <a href="index.html#contact" style="font-size:.875rem;color:var(--muted);font-weight:500;">Liên hệ hỗ trợ</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- ── Progress Bar ── -->
+  <div class="progress-bar">
+    <div class="steps-row" id="stepsRow">
+      <div class="step-item active" id="step1Indicator">
+        <div class="step-circle">1</div>
+        <div class="step-label">Thông tin</div>
+      </div>
+      <div class="step-connector" id="conn1"></div>
+      <div class="step-item" id="step2Indicator">
+        <div class="step-circle">2</div>
+        <div class="step-label">Thanh toán</div>
+      </div>
+      <div class="step-connector" id="conn2"></div>
+      <div class="step-item" id="step3Indicator">
+        <div class="step-circle">3</div>
+        <div class="step-label">Xác nhận</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="booking-layout">
+
+      <!-- ── Main content (steps) ── -->
+      <div>
+
+        <!-- ════ STEP 1: Guest info ════ -->
+        <div id="step1Content">
+          <div class="card">
+            <h2 class="card-title">Thông tin khách hàng</h2>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label class="form-label" for="guestName">Họ và tên <span class="required">*</span></label>
+                <input type="text" class="form-control" id="guestName" placeholder="Nguyễn Văn A" autocomplete="name" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="guestPhone">Số điện thoại <span class="required">*</span></label>
+                <input type="tel" class="form-control" id="guestPhone" placeholder="0912 345 678" autocomplete="tel" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="guestEmail">Email <span class="required">*</span></label>
+              <input type="email" class="form-control" id="guestEmail" placeholder="email@example.com" autocomplete="email" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="guestNote">Ghi chú</label>
+              <textarea class="form-control" id="guestNote" rows="3" placeholder="Yêu cầu đặc biệt, thời gian dự kiến đến, v.v." style="resize:vertical;"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Ảnh CCCD / Hộ chiếu <span class="required">*</span></label>
+              <div class="info-box">
+                📋 Theo quy định, quý khách cần cung cấp ảnh CCCD/Hộ chiếu khi đặt phòng. Thông tin chỉ dùng để xác thực danh tính, được bảo mật hoàn toàn.
+              </div>
+              <div class="upload-area" id="uploadArea">
+                <input type="file" id="cccdFile" accept="image/*,.pdf" />
+                <div id="uploadDefault">
+                  <div class="upload-icon">📷</div>
+                  <div class="upload-text">Nhấn để chọn ảnh CCCD/Hộ chiếu</div>
+                  <div class="upload-sub">JPG, PNG, PDF · Tối đa 10MB</div>
+                </div>
+                <div class="upload-preview" id="uploadPreview">
+                  <img id="previewImg" src="" alt="CCCD Preview" />
+                </div>
+                <div class="upload-preview-name" id="previewName"></div>
+              </div>
+            </div>
+
+            <div class="step-nav">
+              <a href="dat-phong.html" class="btn btn-outline">← Quay lại</a>
+              <button class="btn btn-green" id="toStep2Btn" style="min-width:160px;">
+                Tiếp theo — Thanh toán →
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ════ STEP 2: Payment ════ -->
+        <div id="step2Content" style="display:none;">
+          <div class="card">
+            <h2 class="card-title">Thông tin thanh toán</h2>
+
+            <!-- Bank card -->
+            <div class="payment-card">
+              <div class="payment-bank">Ngân hàng</div>
+              <div class="payment-bank-name">TPBank</div>
+              <div class="payment-row">
+                <span class="payment-row-lbl">Số tài khoản</span>
+                <span class="payment-row-val">
+                  1110 1811 203
+                  <button class="copy-btn" onclick="copyText('1110 1811 203', this)">Sao chép</button>
+                </span>
+              </div>
+              <div class="payment-row">
+                <span class="payment-row-lbl">Chủ tài khoản</span>
+                <span class="payment-row-val">HKD ALA HOMESTAY</span>
+              </div>
+              <div class="payment-row" style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.15);">
+                <span class="payment-row-lbl">Số tiền cần chuyển</span>
+                <span class="payment-row-val big" id="payAmount">--</span>
+              </div>
+            </div>
+
+            <!-- Transfer reference -->
+            <div class="transfer-ref">
+              <div class="transfer-ref-lbl">⚠️ Nội dung chuyển khoản (bắt buộc)</div>
+              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px;">
+                <span class="transfer-ref-val" id="transferRef">ALAHOME xxxxxx</span>
+                <button class="btn btn-outline" style="padding:6px 14px;font-size:0.8125rem;" onclick="copyRef()">Sao chép</button>
+              </div>
+              <div style="font-size:0.8125rem;color:#856404;margin-top:6px;">Vui lòng nhập đúng nội dung để home xác nhận thanh toán tự động.</div>
+            </div>
+
+            <!-- QR Code -->
+            <div class="qr-section">
+              <div class="qr-title">Quét mã QR để thanh toán nhanh</div>
+              <img class="qr-img" id="qrImg" src="" alt="QR Code thanh toán" />
+              <div class="qr-note">Mở app ngân hàng → Quét mã → Số tiền & nội dung đã được điền sẵn</div>
+            </div>
+
+            <!-- Confirmation checkbox -->
+            <label class="confirm-check">
+              <input type="checkbox" id="confirmedPayment" />
+              <span class="confirm-check-label">Tôi xác nhận đã chuyển khoản đúng số tiền và nội dung theo thông tin trên.</span>
+            </label>
+
+            <div class="step-nav">
+              <button class="btn btn-outline" id="backToStep1Btn">← Quay lại</button>
+              <button class="btn btn-green" id="toStep3Btn" style="min-width:160px;">
+                Xác nhận đặt phòng ✓
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ════ STEP 3: Success ════ -->
+        <div id="step3Content" style="display:none;">
+          <div class="card">
+            <div class="success-wrap">
+              <div class="success-icon">✓</div>
+              <h2 class="success-title">Đặt phòng thành công!</h2>
+              <div class="success-booking-id" id="successBookingId">ALA-XXXXXX</div>
+
+              <p class="success-message">
+                Cảm ơn bạn đã tin tưởng lựa chọn ÀlaHome! Chúng tôi đã ghi nhận yêu cầu đặt phòng của bạn. Ngay sau khi xác minh thanh toán, ÀlaHome sẽ gửi email xác nhận kèm toàn bộ hướng dẫn check-in đến địa chỉ email của bạn <strong>trong vòng 30 phút</strong>.
+              </p>
+
+              <div class="success-timeline">
+                <div class="timeline-item">
+                  <div class="timeline-dot">1</div>
+                  <div class="timeline-text">
+                    <strong>Xác minh thanh toán</strong>
+                    <span>ÀlaHome kiểm tra khoản chuyển khoản trong vòng 30 phút</span>
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot">2</div>
+                  <div class="timeline-text">
+                    <strong>Email xác nhận</strong>
+                    <span>Bạn nhận email với mã booking và hướng dẫn chi tiết</span>
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot">3</div>
+                  <div class="timeline-text">
+                    <strong>Check-in tự động 24/7</strong>
+                    <span>Đến giờ nhận phòng, làm theo hướng dẫn trong email là xong!</span>
+                  </div>
+                </div>
+              </div>
+
+              <p style="font-size:0.875rem;color:var(--muted);margin-bottom:20px;">
+                Có thắc mắc? Liên hệ ngay qua Zalo <strong>0911 297 249</strong> để được hỗ trợ.
+              </p>
+
+              <div class="success-actions">
+                <a href="https://zalo.me/0911297249" target="_blank" class="btn btn-outline">
+                  Liên hệ Zalo
+                </a>
+                <a href="index.html" class="btn btn-green">
+                  Về trang chủ
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── Booking Summary Sidebar ── -->
+      <div class="booking-sidebar">
+        <div class="card" style="position:sticky;top:88px;">
+          <h3 class="card-title" style="font-size:1rem;margin-bottom:16px;padding-bottom:14px;">Thông tin đặt phòng</h3>
+          <img class="summary-img" id="summaryImg" src="" alt="Phòng" />
+          <div class="summary-room" id="summaryRoomName">--</div>
+
+          <div class="summary-row">
+            <span class="summary-lbl">Nhận phòng</span>
+            <span class="summary-val" id="summaryCin">--</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-lbl">Trả phòng</span>
+            <span class="summary-val" id="summaryCout">--</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-lbl">Số khách</span>
+            <span class="summary-val" id="summaryGuests">--</span>
+          </div>
+
+          <div class="summary-total">
+            <span class="summary-total-lbl">Tổng thanh toán</span>
+            <span class="summary-total-val" id="summaryTotal">--</span>
+          </div>
+
+          <div style="margin-top:14px;font-size:0.8125rem;color:var(--muted);line-height:1.7;">
+            <strong style="color:var(--text);">Chính sách hủy:</strong><br/>
+            Hủy trước 7 ngày → hoàn 100% · Hủy 4–6 ngày → hoàn 50% · Dưới 4 ngày → không hoàn
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+// ──────────────────────────────────────────
+// CONFIG
+// ──────────────────────────────────────────
+const APPS_SCRIPT_URL = 'PASTE_YOUR_APPS_SCRIPT_URL_HERE';
+
+const ROOM_IMAGES = {
+  'vintage':    'Ala1/Ngủ.JPG',
+  'minimalist': 'Ala2/Minimalist1.JPG',
+  'cozy':       'Ala3/Cozy1.JPG',
+  'tiny-1':     'Ala4/IMG_6239.JPG',
+  'tiny-2':     'Ala5/IMG_9733.JPG',
+};
+
+// ──────────────────────────────────────────
+// PARSE PARAMS
+// ──────────────────────────────────────────
+const p       = new URLSearchParams(location.search);
+const roomId  = p.get('room')     || 'vintage';
+const roomName= p.get('roomName') || 'Phòng';
+const cin     = p.get('cin')      || '';
+const cout    = p.get('cout')     || '';
+const cint    = p.get('cint')     || '';
+const coutt   = p.get('coutt')    || '';
+const adults  = parseInt(p.get('adults'))  || 2;
+const babies  = parseInt(p.get('babies'))  || 0;
+const total   = parseInt(p.get('total'))   || 0;
+
+const bookingId = 'ALA-' + Date.now().toString(36).toUpperCase().slice(-6);
+
+function fmtDate(d) {
+  if (!d) return '--';
+  const [y, m, day] = d.split('-');
+  const mths = ['Th.1','Th.2','Th.3','Th.4','Th.5','Th.6','Th.7','Th.8','Th.9','Th.10','Th.11','Th.12'];
+  return `${parseInt(day)} ${mths[parseInt(m)-1]}, ${y}`;
+}
+
+function fmtPrice(n) {
+  return n.toLocaleString('vi-VN') + 'đ';
+}
+
+// ──────────────────────────────────────────
+// POPULATE SIDEBAR
+// ──────────────────────────────────────────
+document.getElementById('summaryImg').src         = ROOM_IMAGES[roomId] || '';
+document.getElementById('summaryRoomName').textContent = roomName;
+document.getElementById('summaryCin').textContent  = `${fmtDate(cin)} — ${cint}`;
+document.getElementById('summaryCout').textContent = `${fmtDate(cout)} — ${coutt}`;
+document.getElementById('summaryGuests').textContent = adults + ' người lớn' + (babies > 0 ? `, ${babies} em bé` : '');
+document.getElementById('summaryTotal').textContent = total ? fmtPrice(total) : '--';
+
+// ──────────────────────────────────────────
+// STEP MANAGEMENT
+// ──────────────────────────────────────────
+let currentStep = 1;
+
+function goToStep(n) {
+  [1,2,3].forEach(i => {
+    document.getElementById(`step${i}Content`).style.display = i === n ? 'block' : 'none';
+    const ind = document.getElementById(`step${i}Indicator`);
+    ind.classList.remove('active','done');
+    if (i === n) ind.classList.add('active');
+    if (i < n)  ind.classList.add('done');
+    if (i < 3) {
+      const conn = document.getElementById(`conn${i}`);
+      conn.classList.toggle('done', i < n);
+    }
+  });
+  currentStep = n;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ──────────────────────────────────────────
+// STEP 1 → STEP 2
+// ──────────────────────────────────────────
+document.getElementById('toStep2Btn').addEventListener('click', () => {
+  const name  = document.getElementById('guestName').value.trim();
+  const phone = document.getElementById('guestPhone').value.trim();
+  const email = document.getElementById('guestEmail').value.trim();
+  const file  = document.getElementById('cccdFile').files[0];
+
+  if (!name)  { alert('Vui lòng nhập họ và tên.'); document.getElementById('guestName').focus(); return; }
+  if (!phone) { alert('Vui lòng nhập số điện thoại.'); document.getElementById('guestPhone').focus(); return; }
+  if (!email || !email.includes('@')) { alert('Vui lòng nhập email hợp lệ.'); document.getElementById('guestEmail').focus(); return; }
+  if (!file)  { alert('Vui lòng đính kèm ảnh CCCD/Hộ chiếu.'); return; }
+
+  // Fill payment step
+  document.getElementById('payAmount').textContent    = fmtPrice(total);
+  document.getElementById('transferRef').textContent  = `ALAHOME ${bookingId}`;
+  document.getElementById('successBookingId').textContent = bookingId;
+
+  // Build VietQR URL (auto-fills amount + ref in QR)
+  const qrUrl = `https://img.vietqr.io/image/TPB-11101811203-compact2.png?amount=${total}&addInfo=ALAHOME%20${bookingId}&accountName=HKD%20ALA%20HOMESTAY`;
+  document.getElementById('qrImg').src = qrUrl;
+
+  goToStep(2);
+});
+
+// ──────────────────────────────────────────
+// STEP 2 → STEP 3
+// ──────────────────────────────────────────
+document.getElementById('backToStep1Btn').addEventListener('click', () => goToStep(1));
+
+document.getElementById('toStep3Btn').addEventListener('click', async () => {
+  if (!document.getElementById('confirmedPayment').checked) {
+    alert('Vui lòng xác nhận đã chuyển khoản trước khi tiếp tục.');
+    return;
+  }
+
+  const btn = document.getElementById('toStep3Btn');
+  btn.disabled = true;
+  btn.textContent = 'Đang xử lý…';
+
+  // Call Apps Script to save booking (if configured)
+  if (APPS_SCRIPT_URL && APPS_SCRIPT_URL !== 'PASTE_YOUR_APPS_SCRIPT_URL_HERE') {
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({
+          action: 'book',
+          roomId, cin, cout, cint, coutt, adults, babies,
+          totalPrice: total,
+          guestName:  document.getElementById('guestName').value.trim(),
+          guestPhone: document.getElementById('guestPhone').value.trim(),
+          guestEmail: document.getElementById('guestEmail').value.trim(),
+          bookingId,
+        }),
+      });
+    } catch (err) {
+      // Continue even if API fails — admin can reconcile from sheet later
+    }
+  }
+
+  goToStep(3);
+});
+
+// ──────────────────────────────────────────
+// CCCD File upload preview
+// ──────────────────────────────────────────
+document.getElementById('cccdFile').addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const area    = document.getElementById('uploadArea');
+  const preview = document.getElementById('uploadPreview');
+  const pName   = document.getElementById('previewName');
+  const defDiv  = document.getElementById('uploadDefault');
+
+  area.classList.add('has-file');
+  pName.textContent = file.name;
+  pName.classList.add('show');
+
+  if (file.type.startsWith('image/')) {
+    const reader = new FileReader();
+    reader.onload = ev => {
+      document.getElementById('previewImg').src = ev.target.result;
+      preview.classList.add('show');
+      defDiv.style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  } else {
+    defDiv.innerHTML = `<div class="upload-icon">📄</div><div class="upload-text">Đã chọn file PDF</div>`;
+    defDiv.style.display = '';
+  }
+});
+
+// ──────────────────────────────────────────
+// COPY HELPERS
+// ──────────────────────────────────────────
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = 'Đã sao chép!';
+    setTimeout(() => { btn.textContent = orig; }, 1800);
+  });
+}
+
+function copyRef() {
+  const ref = document.getElementById('transferRef').textContent;
+  navigator.clipboard.writeText(ref).then(() => {
+    const btn = event.target;
+    const orig = btn.textContent;
+    btn.textContent = 'Đã sao chép!';
+    setTimeout(() => { btn.textContent = orig; }, 1800);
+  });
+}
+
+// ──────────────────────────────────────────
+// INIT
+// ──────────────────────────────────────────
+goToStep(1);
+
+// Update back link to return with params
+document.querySelector('#step1Content a[href="dat-phong.html"]').href =
+  'dat-phong.html?' + new URLSearchParams({ cin, cout, cint, coutt, adults, babies });
+</script>
+</body>
+</html>

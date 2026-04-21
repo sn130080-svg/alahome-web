@@ -1,0 +1,14 @@
+# Preview/dev images (không cần thiết trên production)
+prev-mobile.png
+preview-full.png
+
+# Claude Code project files
+CLAUDE.md
+.claude/
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# macOS
+.DS_Store
