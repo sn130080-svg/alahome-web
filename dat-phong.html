@@ -78,6 +78,15 @@
       text-decoration: none; transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--green); }
+    .lang-toggle {
+      display: flex; align-items: center; justify-content: center;
+      min-width: 52px; height: 32px; padding: 0 12px;
+      border-radius: 20px; border: 1.5px solid var(--green);
+      background: transparent; color: var(--green);
+      font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.05em;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .lang-toggle:hover { background: var(--green-pale); }
     .hamburger {
       display: none; background: none; border: none; cursor: pointer; padding: 8px;
       -webkit-tap-highlight-color: transparent;
@@ -339,15 +348,14 @@
       <span class="logo-name">ÀlaHome</span>
       <span class="logo-sub">Good space, good service</span>
     </a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="index.html#rooms">Các phòng</a></li>
-      <li><a href="index.html#pricing">Bảng giá</a></li>
-      <li><a href="dat-phong.html" style="color:var(--green);font-weight:600;">Đặt phòng</a></li>
-      <li><a href="index.html#contact">Liên hệ</a></li>
+    <ul class="nav-links">
+      <li><a href="index.html#pricing" data-vi="Bảng giá" data-en="Pricing">Bảng giá</a></li>
+      <li><a href="dat-phong.html" style="color:var(--green);font-weight:600;" data-vi="Đặt phòng" data-en="Book Now">Đặt phòng</a></li>
+      <li><a href="index.html#contact" data-vi="Liên hệ" data-en="Contact">Liên hệ</a></li>
     </ul>
-    <a href="https://zalo.me/0911297249" target="_blank" rel="noopener" class="btn btn-green btn-sm nav-cta">
-      ☎ 0911 297 249
-    </a>
+    <button class="lang-toggle nav-cta" id="langToggle" onclick="toggleLang()">
+      <span id="langLabel">EN</span>
+    </button>
     <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
       <svg id="ham-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round">
         <path d="M3 6h18M3 12h18M3 18h18"/>
@@ -363,10 +371,9 @@
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
   </button>
   <ul class="drawer-links">
-    <li><a href="index.html#rooms" class="drawer-link">Các phòng</a></li>
-    <li><a href="index.html#pricing" class="drawer-link">Bảng giá</a></li>
-    <li><a href="dat-phong.html" class="drawer-link" style="color:var(--green);">Đặt phòng</a></li>
-    <li><a href="index.html#contact" class="drawer-link">Liên hệ</a></li>
+    <li><a href="index.html#pricing" class="drawer-link" data-vi="Bảng giá" data-en="Pricing">Bảng giá</a></li>
+    <li><a href="dat-phong.html" class="drawer-link" style="color:var(--green);" data-vi="Đặt phòng" data-en="Book Now">Đặt phòng</a></li>
+    <li><a href="index.html#contact" class="drawer-link" data-vi="Liên hệ" data-en="Contact">Liên hệ</a></li>
   </ul>
   <div class="drawer-btns">
     <a href="https://zalo.me/0911297249" target="_blank" class="btn btn-green">Zalo: 0911 297 249</a>
@@ -878,6 +885,22 @@ document.querySelectorAll('.drawer-link').forEach(a => a.addEventListener('click
 // ──────────────────────────────────────────
 updateSummaryBar();
 loadRooms();
+</script>
+
+<script>
+// ── Language toggle ──────────────────────────────
+let currentLang = localStorage.getItem('alahome-lang') || 'vi';
+function applyLang(lang) {
+  document.querySelectorAll('[data-vi]').forEach(el => {
+    el.textContent = el.getAttribute('data-' + lang);
+  });
+  document.documentElement.lang = lang === 'vi' ? 'vi' : 'en';
+  document.getElementById('langLabel').textContent = lang === 'vi' ? 'EN' : 'VI';
+  localStorage.setItem('alahome-lang', lang);
+  currentLang = lang;
+}
+function toggleLang() { applyLang(currentLang === 'vi' ? 'en' : 'vi'); }
+if (currentLang === 'en') applyLang('en');
 </script>
 </body>
 </html>

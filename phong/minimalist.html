@@ -47,6 +47,15 @@
     .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
     .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--muted); text-decoration: none; transition: color 0.2s; }
     .nav-links a:hover { color: var(--green); }
+    .lang-toggle {
+      display: flex; align-items: center; justify-content: center;
+      min-width: 52px; height: 32px; padding: 0 12px;
+      border-radius: 20px; border: 1.5px solid var(--green);
+      background: transparent; color: var(--green);
+      font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.05em;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .lang-toggle:hover { background: var(--green-pale); }
     .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; -webkit-tap-highlight-color: transparent; }
     @media (max-width: 767px) { .nav-links, .nav-cta { display: none !important; } .hamburger { display: flex; } }
     .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.48); z-index: 190; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
@@ -154,15 +163,13 @@
         <span class="logo-sub">Good space, good service</span>
       </a>
       <ul class="nav-links">
-        <li><a href="../index.html#rooms">Các phòng</a></li>
-        <li><a href="../index.html#pricing">Bảng giá</a></li>
-        <li><a href="../index.html#how-to-book">Đặt phòng</a></li>
-        <li><a href="../index.html#contact">Liên hệ</a></li>
+        <li><a href="../index.html#pricing" data-vi="Bảng giá" data-en="Pricing">Bảng giá</a></li>
+        <li><a href="../dat-phong.html" data-vi="Đặt phòng" data-en="Book Now">Đặt phòng</a></li>
+        <li><a href="../index.html#contact" data-vi="Liên hệ" data-en="Contact">Liên hệ</a></li>
       </ul>
-      <a href="tel:0911297249" class="btn btn-green btn-sm nav-cta" style="gap:6px;">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 010 1.2 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-        0911 297 249
-      </a>
+      <button class="lang-toggle nav-cta" id="langToggle" onclick="toggleLang()">
+        <span id="langLabel">EN</span>
+      </button>
       <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
           <path stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/>
@@ -178,11 +185,9 @@
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
   </button>
   <ul class="drawer-links">
-    <li><a href="../index.html#rooms"       class="drawer-link">Các phòng</a></li>
-    <li><a href="../index.html#pricing"     class="drawer-link">Bảng giá</a></li>
-    <li><a href="../index.html#how-to-book" class="drawer-link">Đặt phòng</a></li>
-    <li><a href="../index.html#policy"      class="drawer-link">Chính sách</a></li>
-    <li><a href="../index.html#contact"     class="drawer-link">Liên hệ</a></li>
+    <li><a href="../index.html#pricing"     class="drawer-link" data-vi="Bảng giá" data-en="Pricing">Bảng giá</a></li>
+    <li><a href="../dat-phong.html"         class="drawer-link" data-vi="Đặt phòng" data-en="Book Now">Đặt phòng</a></li>
+    <li><a href="../index.html#contact"     class="drawer-link" data-vi="Liên hệ" data-en="Contact">Liên hệ</a></li>
   </ul>
   <div class="drawer-btns">
     <a href="tel:0911297249" class="btn btn-green" style="justify-content:center;">Gọi ngay: 0911 297 249</a>
@@ -410,6 +415,22 @@
   let touchStartX = 0;
   lightbox.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
   lightbox.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - touchStartX; if (Math.abs(dx) > 50) dx < 0 ? nextImage() : prevImage(); });
+</script>
+
+<script>
+// ── Language toggle ──────────────────────────────
+let currentLang = localStorage.getItem('alahome-lang') || 'vi';
+function applyLang(lang) {
+  document.querySelectorAll('[data-vi]').forEach(el => {
+    el.textContent = el.getAttribute('data-' + lang);
+  });
+  document.documentElement.lang = lang === 'vi' ? 'vi' : 'en';
+  document.getElementById('langLabel').textContent = lang === 'vi' ? 'EN' : 'VI';
+  localStorage.setItem('alahome-lang', lang);
+  currentLang = lang;
+}
+function toggleLang() { applyLang(currentLang === 'vi' ? 'en' : 'vi'); }
+if (currentLang === 'en') applyLang('en');
 </script>
 </body>
 </html>

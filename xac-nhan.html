@@ -321,7 +321,10 @@
       <span class="logo-name">ÀlaHome</span>
       <span class="logo-sub">Good space, good service</span>
     </a>
-    <a href="index.html#contact" style="font-size:.875rem;color:var(--muted);font-weight:500;">Liên hệ hỗ trợ</a>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <a href="index.html#contact" style="font-size:.875rem;color:var(--muted);font-weight:500;" data-vi="Liên hệ hỗ trợ" data-en="Support">Liên hệ hỗ trợ</a>
+      <button id="langToggle" onclick="toggleLang()" style="display:flex;align-items:center;justify-content:center;min-width:52px;height:32px;padding:0 12px;border-radius:20px;border:1.5px solid var(--green);background:transparent;color:var(--green);font-size:.8125rem;font-weight:700;letter-spacing:.05em;cursor:pointer;"><span id="langLabel">EN</span></button>
+    </div>
   </div>
 </nav>
 
@@ -723,6 +726,22 @@ function copyRef() {
 goToStep(1);
 document.querySelector('#step1Content a[href="dat-phong.html"]').href =
   'dat-phong.html?' + new URLSearchParams({ cin, cout, cint, coutt, adults, babies });
+</script>
+
+<script>
+// ── Language toggle ──────────────────────────────
+let currentLang = localStorage.getItem('alahome-lang') || 'vi';
+function applyLang(lang) {
+  document.querySelectorAll('[data-vi]').forEach(el => {
+    el.textContent = el.getAttribute('data-' + lang);
+  });
+  document.documentElement.lang = lang === 'vi' ? 'vi' : 'en';
+  document.getElementById('langLabel').textContent = lang === 'vi' ? 'EN' : 'VI';
+  localStorage.setItem('alahome-lang', lang);
+  currentLang = lang;
+}
+function toggleLang() { applyLang(currentLang === 'vi' ? 'en' : 'vi'); }
+if (currentLang === 'en') applyLang('en');
 </script>
 </body>
 </html>
