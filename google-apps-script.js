@@ -252,7 +252,8 @@ function timeToMin(t) {
 // ─────────────────────────────────────────────
 function createBooking(data) {
   const { roomId, cin, cout, cint, coutt, adults, babies, totalPrice,
-          guestName, guestPhone, guestEmail, bookingId } = data;
+          guestName, guestPhone, guestEmail, guestNote, bookingId,
+          cccdBase64, cccdFileName, cccdMimeType } = data;
 
   if (!roomId || !cin || !cout || !cint || !guestName || !guestPhone) {
     return { ok: false, error: 'Thiếu thông tin bắt buộc.' };
@@ -307,7 +308,8 @@ function createBooking(data) {
   sendNotificationEmail({
     id, roomId, roomDisplay: ROOM_DISPLAY[roomId] || roomId,
     cin, cout, cint, coutt, type, adults, babies, totalPrice,
-    guestName, guestPhone, guestEmail,
+    guestName, guestPhone, guestEmail, guestNote,
+    cccdBase64, cccdFileName, cccdMimeType,
   });
 
   return { ok: true, bookingId: id };
@@ -325,8 +327,8 @@ function writeCell(sheet, row, col, value) {
 // Gửi email thông báo đặt phòng
 // ─────────────────────────────────────────────
 function sendNotificationEmail(info) {
-  const typeLabel = info.type === 'ngay' ? 'Ngày đêm'
-                  : info.type === 'dem'  ? 'Đêm'
+  const typeLabel = info.type === 'ngay' ? 'Ngày đêm (14:00 → 12:00)'
+                  : info.type === 'dem'  ? 'Đêm (21:00 → 12:00)'
                   : 'Theo giờ';
 
   const cinFmt  = ymdToDmy(info.cin);
@@ -391,6 +393,7 @@ function sendNotificationEmail(info) {
               ${row2('Họ và tên',       info.guestName)}
               ${row2('Số điện thoại',   info.guestPhone)}
               ${row2('Email',           info.guestEmail || '—')}
+              ${info.guestNote ? row2('Ghi chú', info.guestNote) : ''}
             </table>
           </td>
         </tr>
@@ -424,11 +427,24 @@ function sendNotificationEmail(info) {
 </html>`;
 
   try {
-    MailApp.sendEmail({
-      to:      NOTIFY_EMAIL,
-      subject: subject,
+    const mailOptions = {
+      to:       NOTIFY_EMAIL,
+      subject:  subject,
       htmlBody: html,
-    });
+    };
+
+    // Đính kèm ảnh CCCD nếu có
+    if (info.cccdBase64 && info.cccdFileName) {
+      const mimeType = info.cccdMimeType || 'image/jpeg';
+      const blob = Utilities.newBlob(
+        Utilities.base64Decode(info.cccdBase64),
+        mimeType,
+        info.cccdFileName
+      );
+      mailOptions.attachments = [blob];
+    }
+
+    MailApp.sendEmail(mailOptions);
   } catch (e) {
     Logger.log('Email error: ' + e.message);
   }
