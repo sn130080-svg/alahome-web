@@ -186,16 +186,14 @@
     .seb-chip-guest .seb-val { color: var(--text); }
     .guest-dropdown {
       display: none;
-      position: absolute;
-      top: calc(100% + 8px);
-      right: 0;
+      position: fixed;
       background: #fff;
       border: 1px solid var(--border);
       border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.14);
       padding: 8px 20px 12px;
       min-width: 280px;
-      z-index: 200;
+      z-index: 9999;
     }
     .guest-dropdown.open { display: block; }
     .guest-dropdown .guest-row-modal { padding: 12px 0; }
@@ -933,7 +931,12 @@ function refreshDropdownGuests() {
 guestChip.addEventListener('click', (e) => {
   e.stopPropagation();
   const isOpen = guestDropdown.classList.toggle('open');
-  if (isOpen) refreshDropdownGuests();
+  if (isOpen) {
+    const rect = guestChip.getBoundingClientRect();
+    guestDropdown.style.top  = (rect.bottom + 8) + 'px';
+    guestDropdown.style.right = (window.innerWidth - rect.right) + 'px';
+    refreshDropdownGuests();
+  }
 });
 
 function refreshGuestBadge() {
