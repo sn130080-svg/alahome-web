@@ -399,10 +399,7 @@
     /* Guest picker popup */
     .sf-guests-wrap { position: relative; }
     .guest-picker {
-      position: absolute;
-      top: calc(100% + 4px);
-      left: 50%;
-      transform: translateX(-50%);
+      position: fixed;
       background: #fff;
       border: 1px solid var(--border);
       border-radius: 12px;
@@ -410,7 +407,7 @@
       min-width: 264px;
       box-shadow: 0 8px 28px rgba(0,0,0,0.13);
       display: none;
-      z-index: 30;
+      z-index: 9999;
     }
     .guest-picker.open { display: block; }
     .guest-row {
@@ -1947,7 +1944,15 @@
     document.getElementById('calWrapper').addEventListener('click', e => e.stopPropagation());
 
     // ── Guest picker ──
-    guestsField.addEventListener('click', e => { e.stopPropagation(); guestPicker.classList.toggle('open'); });
+    guestsField.addEventListener('click', e => {
+      e.stopPropagation();
+      const isOpen = guestPicker.classList.toggle('open');
+      if (isOpen) {
+        const rect = guestsField.getBoundingClientRect();
+        guestPicker.style.top   = (rect.bottom + 8) + 'px';
+        guestPicker.style.right = (window.innerWidth - rect.right) + 'px';
+      }
+    });
     document.addEventListener('click', () => guestPicker.classList.remove('open'));
     guestPicker.addEventListener('click', e => e.stopPropagation());
 
