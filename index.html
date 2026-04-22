@@ -1137,7 +1137,6 @@
       <div class="search-field" style="max-width:130px;">
         <div class="sf-label" data-vi="Giờ nhận" data-en="Check-in Time">Giờ nhận</div>
         <select class="sf-select" id="checkinTime" aria-label="Giờ nhận phòng">
-          <option value="">--</option>
           <option value="14:00">14:00</option>
           <option value="21:00">21:00</option>
         </select>
@@ -1789,7 +1788,6 @@
         refreshCheckoutTimeSameDay();
       } else {
         checkinTimeEl.innerHTML =
-          '<option value="">Chọn giờ</option>' +
           '<option value="14:00">14:00 - nhận phòng ban ngày</option>' +
           '<option value="21:00">21:00 - thuê qua đêm</option>';
         checkoutTimeEl.innerHTML = '<option value="12:00">12:00</option>';
