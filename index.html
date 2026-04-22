@@ -1152,6 +1152,35 @@
           <option value="12:00">12:00</option>
         </select>
       </div>
+      <!-- Số khách -->
+      <div class="search-field sf-guests-wrap" style="max-width:180px;" id="sfGuestsField">
+        <div class="sf-label" data-vi="Số khách" data-en="Guests">Số khách</div>
+        <div class="sf-value" id="sfGuestVal">2 người lớn</div>
+        <div class="guest-picker" id="guestPicker">
+          <div class="guest-row">
+            <div>
+              <div class="g-label" data-vi="Người lớn" data-en="Adults">Người lớn</div>
+              <div class="g-sub" data-vi="Tối đa 3 người" data-en="Max 3 guests">Tối đa 3 người</div>
+            </div>
+            <div class="g-counter">
+              <button class="g-btn" id="adultMinus" type="button" aria-label="Giảm">−</button>
+              <span class="g-num" id="adultCount">2</span>
+              <button class="g-btn" id="adultPlus"  type="button" aria-label="Tăng">+</button>
+            </div>
+          </div>
+          <div class="guest-row">
+            <div>
+              <div class="g-label" data-vi="Em bé" data-en="Infants">Em bé</div>
+              <div class="g-sub" data-vi="Dưới 2 tuổi" data-en="Under 2 years">Dưới 2 tuổi</div>
+            </div>
+            <div class="g-counter">
+              <button class="g-btn" id="babyMinus" type="button" disabled aria-label="Giảm">−</button>
+              <span class="g-num" id="babyCount">0</span>
+              <button class="g-btn" id="babyPlus"  type="button" aria-label="Tăng">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- Submit -->
       <button class="search-submit" id="searchSubmitBtn" type="button" aria-label="Tìm phòng">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
