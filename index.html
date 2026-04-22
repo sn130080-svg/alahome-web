@@ -1792,6 +1792,7 @@
       } else {
         const isEn = currentLang === 'en';
         checkinTimeEl.innerHTML =
+          `<option value="">${isEn ? 'Select time' : 'Chọn giờ'}</option>` +
           `<option value="14:00">14:00 - ${isEn ? 'day check-in' : 'nhận phòng ban ngày'}</option>` +
           `<option value="21:00">21:00 - ${isEn ? 'overnight rental' : 'thuê qua đêm'}</option>`;
         checkoutTimeEl.innerHTML = '<option value="12:00">12:00</option>';
@@ -1988,14 +1989,6 @@
     document.getElementById('babyPlus').addEventListener('click',   e => { e.stopPropagation(); babies = Math.min(1, babies+1); refreshGuestUI(); });
     refreshGuestUI();
 
-    // ── Re-render when language changes ──
-    document.addEventListener('alahome-lang-change', () => {
-      calRender();
-      refreshGuestUI();
-      refreshDateDisplay();
-      updateTimePickers();
-    });
-
     // ── Submit ──
     document.getElementById('searchSubmitBtn').addEventListener('click', () => {
       const cin   = checkinDateEl.value;
@@ -2003,6 +1996,7 @@
       const cint  = checkinTimeEl.value;
       const coutt = checkoutTimeEl.value;
       if (!cin || !cout) { alert('Vui lòng chọn ngày nhận và trả phòng.'); return; }
+      if (!cint)         { alert('Vui lòng chọn giờ nhận phòng.'); return; }
       window.location.href = 'dat-phong.html?' + new URLSearchParams({ cin, cout, cint, coutt, adults, babies });
     });
   })();
@@ -2079,8 +2073,11 @@ function applyLang(lang) {
   localStorage.setItem('alahome-lang', lang);
   currentLang = lang;
 
-  // Re-render dynamic JS elements inside IIFE that depend on language
-  document.dispatchEvent(new Event('alahome-lang-change'));
+  // Re-render dynamic JS elements that depend on language
+  if (typeof calRender === 'function') calRender();
+  if (typeof refreshGuestUI === 'function') refreshGuestUI();
+  if (typeof refreshDateDisplay === 'function') refreshDateDisplay();
+  if (typeof updateTimePickers === 'function') updateTimePickers();
 }
 
 function toggleLang() {
