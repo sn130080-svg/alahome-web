@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Xác nhận đặt phòng — ÀlaHome</title>
+  <title>Xác nhận đặt phòng - ÀlaHome</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
@@ -404,7 +404,7 @@
             <div class="step-nav">
               <a href="dat-phong.html" class="btn btn-outline">← Quay lại</a>
               <button class="btn btn-green" id="toStep2Btn" style="min-width:160px;">
-                Tiếp theo — Thanh toán →
+                Tiếp theo - Thanh toán →
               </button>
             </div>
           </div>
@@ -591,8 +591,8 @@ function fmtPrice(n) { return n.toLocaleString('vi-VN') + 'đ'; }
 // ── Populate sidebar ──
 document.getElementById('summaryImg').src              = ROOM_IMAGES[roomId] || '';
 document.getElementById('summaryRoomName').textContent = roomName;
-document.getElementById('summaryCin').textContent      = `${fmtDate(cin)} — ${cint}`;
-document.getElementById('summaryCout').textContent     = `${fmtDate(cout)} — ${coutt}`;
+document.getElementById('summaryCin').textContent      = `${fmtDate(cin)} - ${cint}`;
+document.getElementById('summaryCout').textContent     = `${fmtDate(cout)} - ${coutt}`;
 document.getElementById('summaryGuests').textContent   = adults + ' người lớn' + (babies > 0 ? `, ${babies} em bé` : '');
 document.getElementById('summaryTotal').textContent    = total ? fmtPrice(total) : '--';
 
@@ -665,13 +665,13 @@ document.getElementById('toStep3Btn').addEventListener('click', async () => {
       }),
     });
   } catch (err) {
-    // Tiếp tục kể cả khi API lỗi — admin có thể đối chiếu sau
+    // Tiếp tục kể cả khi API lỗi - admin có thể đối chiếu sau
   }
 
   goToStep(3);
 });
 
-// ── CCCD file upload — lưu base64 để gửi email ──
+// ── CCCD file upload - lưu base64 để gửi email ──
 document.getElementById('cccdFile').addEventListener('change', e => {
   const file = e.target.files[0];
   if (!file) return;

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Đặt phòng ÀlaHome — Kiểm tra phòng trống và đặt ngay." />
-  <title>Đặt phòng — ÀlaHome</title>
+  <meta name="description" content="Đặt phòng ÀlaHome - Kiểm tra phòng trống và đặt ngay." />
+  <title>Đặt phòng - ÀlaHome</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
@@ -524,7 +524,7 @@
 <!-- ── Sticky mobile CTA ── -->
 <div class="sticky-cta">
   <a href="https://zalo.me/0911297249" target="_blank" rel="noopener" class="btn btn-green">
-    Hỏi phòng qua Zalo — 0911 297 249
+    Hỏi phòng qua Zalo - 0911 297 249
   </a>
 </div>
 
@@ -533,7 +533,7 @@
 ════════════════════════════════════════ -->
 <script>
 // ──────────────────────────────────────────
-// CONFIG — paste your Apps Script URL here
+// CONFIG - paste your Apps Script URL here
 // ──────────────────────────────────────────
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbys8X0GO0rhuL1kyJnUGs7eaJz32V_bFd4IZLNjkm5vuO6e0u3H-QqoC_zeoYFpkWFybg/exec';
 
@@ -555,7 +555,7 @@ const ROOMS = [
   {
     id: 'minimalist',
     name: 'Minimalist Room',
-    desc: 'Tối giản, tinh tế — không gian tập trung vào trải nghiệm nghỉ ngơi.',
+    desc: 'Tối giản, tinh tế - không gian tập trung vào trải nghiệm nghỉ ngơi.',
     img: 'Ala2/Minimalist1.JPG',
     link: 'phong/minimalist.html',
     amenities: ['Máy chiếu', 'Ban công', 'Bếp mini', 'Điều hòa', 'WiFi'],
@@ -566,7 +566,7 @@ const ROOMS = [
   {
     id: 'cozy',
     name: 'Cozy Room',
-    desc: 'Ấm cúng với 2 ban công riêng — lý tưởng cho những khoảnh khắc thư giãn.',
+    desc: 'Ấm cúng với 2 ban công riêng - lý tưởng cho những khoảnh khắc thư giãn.',
     img: 'Ala3/Cozy1.JPG',
     link: 'phong/cozy.html',
     amenities: ['Máy chiếu', '2 Ban công', 'Bếp mini', 'Điều hòa', 'WiFi'],
@@ -577,7 +577,7 @@ const ROOMS = [
   {
     id: 'tiny-1',
     name: 'Tiny Room 1',
-    desc: 'Gọn gàng, tiện nghi đầy đủ — hoàn hảo cho cặp đôi hoặc khách một mình.',
+    desc: 'Gọn gàng, tiện nghi đầy đủ - hoàn hảo cho cặp đôi hoặc khách một mình.',
     img: 'Ala4/IMG_6239.JPG',
     link: 'phong/tiny-1.html',
     amenities: ['Ban công', 'Bếp mini', 'Điều hòa', 'WiFi'],
@@ -588,7 +588,7 @@ const ROOMS = [
   {
     id: 'tiny-2',
     name: 'Tiny Room 2',
-    desc: 'Gọn gàng, tiện nghi đầy đủ — hoàn hảo cho cặp đôi hoặc khách một mình.',
+    desc: 'Gọn gàng, tiện nghi đầy đủ - hoàn hảo cho cặp đôi hoặc khách một mình.',
     img: 'Ala5/IMG_9733.JPG',
     link: 'phong/tiny-2.html',
     amenities: ['Ban công', 'Bếp mini', 'Điều hòa', 'WiFi'],
@@ -655,7 +655,7 @@ function updateSummaryBar() {
   document.getElementById('sebGuests').textContent = g;
 
   document.getElementById('resultsTitle').textContent =
-    cin ? `Phòng trống — ${fmtDate(cin)} → ${fmtDate(cout)}` : 'Chọn ngày để xem phòng trống';
+    cin ? `Phòng trống - ${fmtDate(cin)} → ${fmtDate(cout)}` : 'Chọn ngày để xem phòng trống';
   document.getElementById('resultsSub').textContent =
     cint && coutt ? `Nhận lúc ${cint} · Trả lúc ${coutt} · ${adults} khách` : '';
 }
@@ -812,8 +812,8 @@ function updateModalTimePickers() {
   } else {
     mCintEl.innerHTML =
       '<option value="">Chọn giờ</option>' +
-      `<option value="14:00"${cint==='14:00'?' selected':''}>14:00 — nhận phòng sáng</option>` +
-      `<option value="21:00"${cint==='21:00'?' selected':''}>21:00 — thuê qua đêm</option>`;
+      `<option value="14:00"${cint==='14:00'?' selected':''}>14:00 - nhận phòng sáng</option>` +
+      `<option value="21:00"${cint==='21:00'?' selected':''}>21:00 - thuê qua đêm</option>`;
     mCouттEl.innerHTML = '<option value="12:00">12:00</option>';
   }
 }
