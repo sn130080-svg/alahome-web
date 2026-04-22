@@ -1789,9 +1789,12 @@
         }
         refreshCheckoutTimeSameDay();
       } else {
-        checkinTimeEl.innerHTML =
-          '<option value="14:00">14:00 - nhận phòng ban ngày</option>' +
-          '<option value="21:00">21:00 - thuê qua đêm</option>';
+        const tLang = (typeof currentLang !== 'undefined') ? currentLang : (localStorage.getItem('alahome-lang') || 'vi');
+        const prevVal = checkinTimeEl.value;
+        checkinTimeEl.innerHTML = tLang === 'en'
+          ? '<option value="14:00">14:00 - day check-in</option><option value="21:00">21:00 - overnight rental</option>'
+          : '<option value="14:00">14:00 - nhận phòng ban ngày</option><option value="21:00">21:00 - thuê qua đêm</option>';
+        if (prevVal) checkinTimeEl.value = prevVal;
         checkoutTimeEl.innerHTML = '<option value="12:00">12:00</option>';
       }
     }
@@ -1993,6 +1996,7 @@
       calRender();
       refreshGuestUI();
       refreshDateDisplay();
+      updateTimePickers();
     });
 
     // ── Submit ──
