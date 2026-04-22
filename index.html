@@ -1767,11 +1767,9 @@
     const guestsField    = document.getElementById('sfGuestsField');
 
     function fmtDate(d) {
-      const [y, mo, day] = d.split('-');
-      const vi = ['Th1','Th2','Th3','Th4','Th5','Th6','Th7','Th8','Th9','Th10','Th11','Th12'];
-      const en = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-      const months = currentLang === 'en' ? en : vi;
-      return `${parseInt(day)} ${months[parseInt(mo)-1]}`;
+      const [y, m, day] = d.split('-');
+      const months = ['Th1','Th2','Th3','Th4','Th5','Th6','Th7','Th8','Th9','Th10','Th11','Th12'];
+      return `${parseInt(day)} ${months[parseInt(m)-1]}`;
     }
 
     function isSameDay() {
@@ -1790,11 +1788,10 @@
         }
         refreshCheckoutTimeSameDay();
       } else {
-        const isEn = currentLang === 'en';
         checkinTimeEl.innerHTML =
-          `<option value="">${isEn ? 'Select time' : 'Chọn giờ'}</option>` +
-          `<option value="14:00">14:00 - ${isEn ? 'day check-in' : 'nhận phòng ban ngày'}</option>` +
-          `<option value="21:00">21:00 - ${isEn ? 'overnight rental' : 'thuê qua đêm'}</option>`;
+          '<option value="">Chọn giờ</option>' +
+          '<option value="14:00">14:00 - nhận phòng ban ngày</option>' +
+          '<option value="21:00">21:00 - thuê qua đêm</option>';
         checkoutTimeEl.innerHTML = '<option value="12:00">12:00</option>';
       }
     }
@@ -1809,20 +1806,15 @@
       }
     }
 
-    function refreshDateDisplay() {
-      const ph = currentLang === 'en' ? 'Select date' : 'Chọn ngày';
-      const ci = checkinDateEl.value, co = checkoutDateEl.value;
-      sfCheckinVal.innerHTML  = ci ? fmtDate(ci)  : `<span class="sf-placeholder">${ph}</span>`;
-      sfCheckoutVal.innerHTML = co ? fmtDate(co) : `<span class="sf-placeholder">${ph}</span>`;
-    }
-
     checkinDateEl.addEventListener('change', () => {
-      refreshDateDisplay();
+      const v = checkinDateEl.value;
+      sfCheckinVal.innerHTML = v ? fmtDate(v) : '<span class="sf-placeholder">Chọn ngày</span>';
       updateTimePickers();
     });
 
     checkoutDateEl.addEventListener('change', () => {
-      refreshDateDisplay();
+      const v = checkoutDateEl.value;
+      sfCheckoutVal.innerHTML = v ? fmtDate(v) : '<span class="sf-placeholder">Chọn ngày</span>';
       updateTimePickers();
     });
 
@@ -1836,8 +1828,7 @@
     let calVYear = new Date().getFullYear(), calVMonth = new Date().getMonth();
 
     function calFmtMth(y, m) {
-      const locale = currentLang === 'en' ? 'en-US' : 'vi-VN';
-      return new Date(y, m).toLocaleDateString(locale, { month: 'long', year: 'numeric' });
+      return new Date(y, m).toLocaleDateString('vi-VN', { month: 'long', year: 'numeric' });
     }
 
     function calBuildGrid(y, m) {
@@ -1876,10 +1867,7 @@
             <span class="cal-m-title">${calFmtMth(y, m)}</span>
             <button class="cal-nav-btn${i < n-1 ? ' cal-nav-invis' : ''}" data-nav="next" type="button">›</button>
           </div>
-          <div class="cal-wdays">${currentLang === 'en'
-            ? '<span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span>'
-            : '<span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span>T7</span><span>CN</span>'
-          }</div>
+          <div class="cal-wdays"><span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span>T7</span><span>CN</span></div>
           ${calBuildGrid(y, m)}
         </div>`;
       }
@@ -1900,14 +1888,11 @@
       });
 
       const lbl = document.getElementById('calNightsLabel');
-      const isEn = currentLang === 'en';
-      if (!calCin) lbl.textContent = isEn ? 'Select check-in date' : 'Chọn ngày nhận phòng';
-      else if (!calCout) lbl.textContent = isEn ? 'Select check-out date' : 'Chọn ngày trả phòng';
+      if (!calCin) lbl.textContent = 'Chọn ngày nhận phòng';
+      else if (!calCout) lbl.textContent = 'Chọn ngày trả phòng';
       else {
         const diff = Math.round((new Date(calCout) - new Date(calCin)) / 86400000);
-        lbl.textContent = diff === 0
-          ? (isEn ? 'Hourly rental - same day' : 'Thuê theo giờ - cùng ngày')
-          : (isEn ? `${diff} night${diff > 1 ? 's' : ''}` : `${diff} đêm`);
+        lbl.textContent = diff === 0 ? 'Thuê theo giờ - cùng ngày' : `${diff} đêm`;
       }
     }
 
@@ -1978,9 +1963,7 @@
       document.getElementById('adultPlus').disabled  = adults >= 3;
       document.getElementById('babyMinus').disabled  = babies <= 0;
       document.getElementById('babyPlus').disabled   = babies >= 1;
-      const isEn = currentLang === 'en';
-      sfGuestVal.textContent = adults + (isEn ? ' adult' + (adults > 1 ? 's' : '') : ' người lớn') +
-        (babies > 0 ? (isEn ? `, ${babies} infant${babies > 1 ? 's' : ''}` : `, ${babies} em bé`) : '');
+      sfGuestVal.textContent = adults + ' người lớn' + (babies > 0 ? `, ${babies} em bé` : '');
     }
 
     document.getElementById('adultMinus').addEventListener('click', e => { e.stopPropagation(); adults = Math.max(1, adults-1); refreshGuestUI(); });
@@ -2072,12 +2055,6 @@ function applyLang(lang) {
 
   localStorage.setItem('alahome-lang', lang);
   currentLang = lang;
-
-  // Re-render dynamic JS elements that depend on language
-  if (typeof calRender === 'function') calRender();
-  if (typeof refreshGuestUI === 'function') refreshGuestUI();
-  if (typeof refreshDateDisplay === 'function') refreshDateDisplay();
-  if (typeof updateTimePickers === 'function') updateTimePickers();
 }
 
 function toggleLang() {
