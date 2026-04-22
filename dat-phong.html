@@ -166,12 +166,24 @@
       .seb-chip { flex-shrink: 0; }
     }
 
-    /* ── Guest Dropdown ── */
+    /* ── Guest Picker Widget ── */
+    .seb-guest-picker {
+      position: relative;
+      flex-shrink: 0;
+    }
     .seb-chip-guest {
+      padding: 14px 20px;
+      font-size: 1rem; font-weight: 500;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
       cursor: pointer;
       user-select: none;
+      white-space: nowrap;
     }
-    .seb-chip-guest:hover { background: rgba(0,0,0,0.03); }
+    .seb-chip-guest:hover { background: #eeeae4; }
+    .seb-chip-guest .seb-lbl { font-size: 0.75rem; color: var(--muted); display: block; margin-bottom: 2px; }
+    .seb-chip-guest .seb-val { color: var(--text); }
     .guest-dropdown {
       display: none;
       position: absolute;
@@ -428,32 +440,34 @@
           <span class="seb-lbl" data-vi="Giờ trả" data-en="Time out">Giờ trả</span>
           <span class="seb-val" id="sebCoutt">--</span>
         </div>
-        <div class="seb-chip seb-chip-guest" id="guestChip">
+      </div>
+      <div class="seb-guest-picker">
+        <div class="seb-chip-guest" id="guestChip">
           <span class="seb-lbl" data-vi="Số khách" data-en="Guests">Số khách</span>
           <span class="seb-val" id="sebGuests">--</span>
         </div>
-      </div>
-      <div class="guest-dropdown" id="guestDropdown">
-        <div class="guest-row-modal">
-          <div>
-            <div class="g-label">Người lớn</div>
-            <div class="g-sub">Tối đa 3 người</div>
+        <div class="guest-dropdown" id="guestDropdown">
+          <div class="guest-row-modal">
+            <div>
+              <div class="g-label">Người lớn</div>
+              <div class="g-sub">Tối đa 3 người</div>
+            </div>
+            <div class="g-counter">
+              <button class="g-btn" id="gdAdultMinus" type="button">−</button>
+              <span class="g-num" id="gdAdultCount">2</span>
+              <button class="g-btn" id="gdAdultPlus"  type="button">+</button>
+            </div>
           </div>
-          <div class="g-counter">
-            <button class="g-btn" id="gdAdultMinus" type="button">−</button>
-            <span class="g-num" id="gdAdultCount">2</span>
-            <button class="g-btn" id="gdAdultPlus"  type="button">+</button>
-          </div>
-        </div>
-        <div class="guest-row-modal">
-          <div>
-            <div class="g-label">Em bé</div>
-            <div class="g-sub">Dưới 2 tuổi</div>
-          </div>
-          <div class="g-counter">
-            <button class="g-btn" id="gdBabyMinus" type="button">−</button>
-            <span class="g-num" id="gdBabyCount">0</span>
-            <button class="g-btn" id="gdBabyPlus"  type="button">+</button>
+          <div class="guest-row-modal">
+            <div>
+              <div class="g-label">Em bé</div>
+              <div class="g-sub">Dưới 2 tuổi</div>
+            </div>
+            <div class="g-counter">
+              <button class="g-btn" id="gdBabyMinus" type="button">−</button>
+              <span class="g-num" id="gdBabyCount">0</span>
+              <button class="g-btn" id="gdBabyPlus"  type="button">+</button>
+            </div>
           </div>
         </div>
       </div>
