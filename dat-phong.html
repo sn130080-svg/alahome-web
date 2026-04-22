@@ -166,38 +166,6 @@
       .seb-chip { flex-shrink: 0; }
     }
 
-    /* ── Guest Picker Widget ── */
-    .seb-guest-picker {
-      position: relative;
-      flex-shrink: 0;
-    }
-    .seb-chip-guest {
-      padding: 14px 20px;
-      font-size: 1rem; font-weight: 500;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      cursor: pointer;
-      user-select: none;
-      white-space: nowrap;
-    }
-    .seb-chip-guest:hover { background: #eeeae4; }
-    .seb-chip-guest .seb-lbl { font-size: 0.75rem; color: var(--muted); display: block; margin-bottom: 2px; }
-    .seb-chip-guest .seb-val { color: var(--text); }
-    .guest-dropdown {
-      display: none;
-      position: fixed;
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.14);
-      padding: 8px 20px 12px;
-      min-width: 280px;
-      z-index: 9999;
-    }
-    .guest-dropdown.open { display: block; }
-    .guest-dropdown .guest-row-modal { padding: 12px 0; }
-
     /* ── Search Edit Modal ── */
     .modal-overlay {
       position: fixed; inset: 0; background: rgba(0,0,0,0.5);
@@ -437,36 +405,6 @@
         <div class="seb-chip">
           <span class="seb-lbl" data-vi="Giờ trả" data-en="Time out">Giờ trả</span>
           <span class="seb-val" id="sebCoutt">--</span>
-        </div>
-      </div>
-      <div class="seb-guest-picker">
-        <div class="seb-chip-guest" id="guestChip">
-          <span class="seb-lbl" data-vi="Số khách" data-en="Guests">Số khách</span>
-          <span class="seb-val" id="sebGuests">--</span>
-        </div>
-        <div class="guest-dropdown" id="guestDropdown">
-          <div class="guest-row-modal">
-            <div>
-              <div class="g-label">Người lớn</div>
-              <div class="g-sub">Tối đa 3 người</div>
-            </div>
-            <div class="g-counter">
-              <button class="g-btn" id="gdAdultMinus" type="button">−</button>
-              <span class="g-num" id="gdAdultCount">2</span>
-              <button class="g-btn" id="gdAdultPlus"  type="button">+</button>
-            </div>
-          </div>
-          <div class="guest-row-modal">
-            <div>
-              <div class="g-label">Em bé</div>
-              <div class="g-sub">Dưới 2 tuổi</div>
-            </div>
-            <div class="g-counter">
-              <button class="g-btn" id="gdBabyMinus" type="button">−</button>
-              <span class="g-num" id="gdBabyCount">0</span>
-              <button class="g-btn" id="gdBabyPlus"  type="button">+</button>
-            </div>
-          </div>
         </div>
       </div>
       <button class="seb-edit-btn" id="editSearchBtn" type="button">
@@ -915,58 +853,6 @@ document.getElementById('mAdultPlus').addEventListener('click',  () => { mAdults
 document.getElementById('mBabyMinus').addEventListener('click',  () => { mBabies = Math.max(0, mBabies - 1); refreshModalGuests(); });
 document.getElementById('mBabyPlus').addEventListener('click',   () => { mBabies = Math.min(1, mBabies + 1); refreshModalGuests(); });
 
-// ── Guest Dropdown ──
-const guestChip     = document.getElementById('guestChip');
-const guestDropdown = document.getElementById('guestDropdown');
-
-function refreshDropdownGuests() {
-  document.getElementById('gdAdultCount').textContent = mAdults;
-  document.getElementById('gdBabyCount').textContent  = mBabies;
-  document.getElementById('gdAdultMinus').disabled = mAdults <= 1;
-  document.getElementById('gdAdultPlus').disabled  = mAdults >= 3;
-  document.getElementById('gdBabyMinus').disabled  = mBabies <= 0;
-  document.getElementById('gdBabyPlus').disabled   = mBabies >= 1;
-}
-
-guestChip.addEventListener('click', (e) => {
-  e.stopPropagation();
-  const isOpen = guestDropdown.classList.toggle('open');
-  if (isOpen) {
-    const rect = guestChip.getBoundingClientRect();
-    guestDropdown.style.top  = (rect.bottom + 8) + 'px';
-    guestDropdown.style.right = (window.innerWidth - rect.right) + 'px';
-    refreshDropdownGuests();
-  }
-});
-
-function refreshGuestBadge() {
-  let g = `${mAdults} người lớn`;
-  if (mBabies > 0) g += `, ${mBabies} em bé`;
-  document.getElementById('sebGuests').textContent = g;
-}
-
-document.getElementById('gdAdultMinus').addEventListener('click', (e) => {
-  e.stopPropagation();
-  mAdults = Math.max(1, mAdults - 1);
-  refreshDropdownGuests(); refreshModalGuests(); refreshGuestBadge();
-});
-document.getElementById('gdAdultPlus').addEventListener('click', (e) => {
-  e.stopPropagation();
-  mAdults = Math.min(3, mAdults + 1);
-  refreshDropdownGuests(); refreshModalGuests(); refreshGuestBadge();
-});
-document.getElementById('gdBabyMinus').addEventListener('click', (e) => {
-  e.stopPropagation();
-  mBabies = Math.max(0, mBabies - 1);
-  refreshDropdownGuests(); refreshModalGuests(); refreshGuestBadge();
-});
-document.getElementById('gdBabyPlus').addEventListener('click', (e) => {
-  e.stopPropagation();
-  mBabies = Math.min(1, mBabies + 1);
-  refreshDropdownGuests(); refreshModalGuests(); refreshGuestBadge();
-});
-
-document.addEventListener('click', () => { guestDropdown.classList.remove('open'); });
 
 document.getElementById('applySearchBtn').addEventListener('click', () => {
   const newCin   = document.getElementById('mCheckinDate').value;
